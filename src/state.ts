@@ -3,6 +3,7 @@ import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
+import { commandInspect } from "./command_inspect.js";
 import { commandMapf, commandMapb } from "./command_map.js";
 import { PokeAPI, Pokemon } from "./pokeapi.js";
 
@@ -69,6 +70,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: "catch",
       description: "Catch a Pokemon",
       callback: commandCatch,
+    },
+    inspect: {
+      name: "inspect",
+      description: "Inspect a Pokemon",
+      callback: commandInspect,
     },
   };
 }
