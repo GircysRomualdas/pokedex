@@ -1,13 +1,14 @@
 import { createInterface, type Interface } from "readline";
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
+import { commandExplore } from "./command_explore.js";
 import { commandMapf, commandMapb } from "./command_map.js";
 import { PokeAPI } from "./pokeapi.js";
 
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (state: State) => Promise<void>;
+  callback: (state: State, ...args: string[]) => Promise<void>;
 };
 
 export type State = {
@@ -55,6 +56,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: "mapb",
       description: "Get the previous page of locations",
       callback: commandMapb,
+    },
+    explore: {
+      name: "explore",
+      description: "Explore a location",
+      callback: commandExplore,
     },
   };
 }
