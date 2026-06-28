@@ -26,6 +26,9 @@ class Program {
         case "map":
           await MapCommand.Run();
           break;
+        case "explore":
+          await ExploreCommand.Run(parts);
+          break;
         default:
           Console.WriteLine("Unknown command");
           break;

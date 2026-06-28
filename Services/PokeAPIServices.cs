@@ -17,6 +17,7 @@ static class PokeAPIServices {
 
   public static async Task<string> FetchAsync(string path) {
     string fullUrl = $"{BaseUrl}/{path}";
+    Console.WriteLine($"fullUrl: {fullUrl}"); // temp for test
     var now = DateTime.UtcNow;
 
     if (cache.TryGetValue(fullUrl, out var cacheItem) && CacheIsValid(cacheItem, now)) {
