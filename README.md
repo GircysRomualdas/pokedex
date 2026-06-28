@@ -9,3 +9,7 @@ Command-line Pokemon exploration tool built in C# that allows users to explore t
 1. Clone the repository.
 
 ## Usage
+
+```bash
+dotnet run
+```
