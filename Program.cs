@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Pokedex.Services;
 using Pokedex.Commands;
 
 namespace Pokedex;
 class Program {
   static async Task Main() {
     Console.WriteLine("Welcome to the Pokedex!");
-    HelpCommand.Execute();
+    HelpCommand.Run();
 
     while (true) {
       Console.Write("> ");
@@ -19,13 +18,13 @@ class Program {
 
       switch (parts[0]) {
         case "exit":
-          ExitCommand.Execute();
+          ExitCommand.Run();
           break;
         case "help":
-          HelpCommand.Execute();
+          HelpCommand.Run();
           break;
-        case "api":
-          await Api.ApiPoke();
+        case "map":
+          await MapCommand.Run();
           break;
         default:
           Console.WriteLine("Unknown command");
