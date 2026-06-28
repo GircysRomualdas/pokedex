@@ -1,7 +1,8 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace pokedex;
+namespace Pokedex.Services;
 static class Api {
   static HttpClient client = new HttpClient();
   public static async Task ApiPoke() {
