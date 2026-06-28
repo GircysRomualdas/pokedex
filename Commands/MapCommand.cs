@@ -7,10 +7,10 @@ using System.Text.Json;
 using System.Net.Http;
 
 namespace Pokedex.Commands;
-class MapCommand {
+static class MapCommand {
   public static async Task Run() {
     try {
-      string responseBody = await PokeAPIServices.PokeAPI("location-area");
+      string responseBody = await PokeAPIServices.FetchAsync("location-area");
       LocationArea? locationArea = JsonSerializer.Deserialize<LocationArea>(responseBody);
       if (locationArea is null) {
         Console.WriteLine("Failed to parse location area.");
