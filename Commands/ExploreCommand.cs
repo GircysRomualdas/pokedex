@@ -17,38 +17,17 @@ static class ExploreCommand {
     }
 
     string locationArea = args[1];
-    string path = $"location-area/{locationArea}";
-    string responseBody;
-    try {
-      responseBody = await PokeApiService.Fetch(path);
-    }
-    catch (HttpRequestException e) {
-        Console.WriteLine($"Network error: {e.Message}");
-        return;
-    } catch (Exception e) {
-        Console.WriteLine($"Unexpected error: {e.Message}");
-        return;
-    }
-    
-    LocationAreaDetailApi? locationAreaDetailApi;
-    try {
-      locationAreaDetailApi = JsonSerializer.Deserialize<LocationAreaDetailApi>(responseBody);
-    } catch (JsonException e) {
-        Console.WriteLine($"JSON error: {e.Message}");
-        return;
-    } catch (Exception e) {
-        Console.WriteLine($"Unexpected error: {e.Message}");
-        return;
-    }
 
-    if (locationAreaDetailApi is null) {
-      Console.WriteLine("Failed to parse location area.");
+    LocationAreaDetailApi locationAreaDetail;
+    try {
+      locationAreaDetail = await LocationAreaService.GetByName(locationArea);
+    } catch (Exception ex) {
+      Console.WriteLine($"Error: {ex.Message}");
       return;
     }
 
     Console.WriteLine(" Found Pokemon:");
-
-    foreach (var encounter in locationAreaDetailApi.PokemonEncounters) {
+    foreach (var encounter in locationAreaDetail.PokemonEncounters) {
       Console.WriteLine($" - {encounter.Pokemon.Name}");
     }
   }

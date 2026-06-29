@@ -9,7 +9,7 @@ static class MapCommand {
   public static async Task Run() {
     LocationAreaApi locationArea;
     try {
-      locationArea = await LocationAreaService.GetLocationArea();
+      locationArea = await LocationAreaService.GetAll();
     } catch (Exception ex) {
       Console.WriteLine($"Error: {ex.Message}");
       return;
