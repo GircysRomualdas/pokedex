@@ -1,44 +1,23 @@
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+
 using Pokedex.Models.Api;
 
 namespace Pokedex.Services;
 
 static class LocationAreaService {
-  private const string Path = "location-area";
-  static public async Task<LocationAreaApi> GetAll() {
-    string responseBody = await PokeApiService.Fetch(Path);
+  private const string Endpoint = "location-area";
+  private const string BaseUrl = "https://pokeapi.co/api/v2";
+  private const string defaultUrl = $"{BaseUrl}/{Endpoint}";
 
-    LocationAreaApi? locationArea;
-    try {
-      locationArea = JsonSerializer.Deserialize<LocationAreaApi>(responseBody);
-    } catch (JsonException ex) {
-      throw new JsonException($"Failed to deserialize PokeAPI response for '{Path}' into {nameof(LocationAreaApi)}", ex);
-    }
-      
-    if (locationArea is null) {
-      throw new InvalidOperationException($"PokeAPI returned null for '{Path}' when deserializing {nameof(LocationAreaApi)}");
-    }
-
-    return locationArea;
+  static public async Task<LocationAreaApi> GetPageAsync(string? url) {
+    string fullUrl = url is null ? defaultUrl : url;
+    return await PokeApiSerializer.GetAsync<LocationAreaApi>(fullUrl);
   }
 
-  static public async Task<LocationAreaDetailApi> GetByName(string locationArea) {
-    string fullPath = $"{Path}/{locationArea}";
-    string responseBody = await PokeApiService.Fetch(fullPath);
-
-    LocationAreaDetailApi? locationAreaDetail;
-    try {
-      locationAreaDetail = JsonSerializer.Deserialize<LocationAreaDetailApi>(responseBody);
-    } catch (JsonException ex) {
-      throw new JsonException($"Failed to deserialize PokeAPI response for '{fullPath}' into {nameof(LocationAreaDetailApi)}", ex);
-    }
-
-    if (locationAreaDetail is null) {
-      throw new InvalidOperationException($"PokeAPI returned null for '{fullPath}' when deserializing {nameof(LocationAreaDetailApi)}");
-    }
-
-    return locationAreaDetail;
+  static public async Task<LocationAreaDetailApi> GetByNameAsync(string locationArea) {
+    string fullUrl = $"{defaultUrl}/{locationArea}";
+    return await PokeApiSerializer.GetAsync<LocationAreaDetailApi>(fullUrl);
   }
 }

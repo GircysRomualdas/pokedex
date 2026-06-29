@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using Pokedex.State;
+
 using Pokedex.Commands;
 
 namespace Pokedex;
 class Program {
   static async Task Main() {
+    GameState gameState = new();
+
     Console.WriteLine(" Welcome to the Pokedex!");
     HelpCommand.Run();
 
@@ -24,7 +28,7 @@ class Program {
           HelpCommand.Run();
           break;
         case "map":
-          await MapCommand.Run();
+          await MapCommand.Run(gameState);
           break;
         case "explore":
           await ExploreCommand.Run(parts);
