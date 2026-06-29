@@ -28,7 +28,10 @@ class Program {
           HelpCommand.Run();
           break;
         case "map":
-          await MapCommand.Run(gameState);
+          await MapCommand.Run(gameState, MapCommand.MapDirection.Next);
+          break;
+        case "mapb":
+          await MapCommand.Run(gameState, MapCommand.MapDirection.Previous);
           break;
         case "explore":
           await ExploreCommand.Run(parts);
