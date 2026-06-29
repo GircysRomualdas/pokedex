@@ -6,10 +6,10 @@ using Pokedex.Models.Api;
 using Pokedex.State;
 
 namespace Pokedex.Commands;
+
 static class MapCommand {
 
-  public enum MapDirection
-  {
+  public enum MapDirection {
     Next,
     Previous
   }
@@ -18,15 +18,14 @@ static class MapCommand {
     LocationAreaApi locationArea;
     try {
       locationArea = await LocationAreaApiService.GetPageAsync(url);
-    } catch (Exception ex) {
+    }
+    catch (Exception ex) {
       Console.WriteLine(ex.Message);
       return;
     }
 
     gameState.NextLocationUrl = locationArea.Next;
     gameState.PreviousLocationUrl = locationArea.Previous;
-    Console.WriteLine($"gameState.NextLocationUrl {gameState.NextLocationUrl}");
-    Console.WriteLine($"gameState.PreviousLocationUrl {gameState.PreviousLocationUrl}");
 
     foreach (var result in locationArea.Results) {
       Console.WriteLine($" {result.Name}");

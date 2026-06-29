@@ -4,15 +4,15 @@ using Pokedex.Models.Domain;
 namespace Pokedex.State;
 
 interface IReadOnlyGameState {
-  string? NextLocationUrl {get;}
-  string? PreviousLocationUrl {get;}
-  IReadOnlyList<Pokemon> Pokedex {get;}
+  string? NextLocationUrl { get; }
+  string? PreviousLocationUrl { get; }
+  IReadOnlyList<Pokemon> Pokedex { get; }
 }
 
 class GameState : IReadOnlyGameState {
-  public string? NextLocationUrl {get; set;}
-  public string? PreviousLocationUrl {get; set;}
+  public string? NextLocationUrl { get; set; }
+  public string? PreviousLocationUrl { get; set; }
 
-  public List<Pokemon> Pokedex {get; init;} = new();
+  public List<Pokemon> Pokedex { get; init; } = new();
   IReadOnlyList<Pokemon> IReadOnlyGameState.Pokedex => Pokedex;
 }

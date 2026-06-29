@@ -6,6 +6,7 @@ using Pokedex.State;
 using Pokedex.Commands;
 
 namespace Pokedex;
+
 class Program {
   static async Task Main() {
     GameState gameState = new();
@@ -38,6 +39,9 @@ class Program {
           break;
         case "catch":
           await CatchCommand.Run(parts, gameState);
+          break;
+        case "pokedex":
+          PokedexCommand.Run(gameState);
           break;
         default:
           Console.WriteLine(" Unknown command");

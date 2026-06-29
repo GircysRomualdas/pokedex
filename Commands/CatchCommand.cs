@@ -8,12 +8,9 @@ using Pokedex.Models.Domain;
 
 namespace Pokedex.Commands;
 
-static class CatchCommand
-{
-  public static async Task Run(string[] args, GameState gameState)
-  {
-    if (args.Length < 2)
-    {
+static class CatchCommand {
+  public static async Task Run(string[] args, GameState gameState) {
+    if (args.Length < 2) {
       Console.WriteLine("Wrong number of arguments!");
       Console.WriteLine("usage: catch <pokemon>");
       return;
@@ -21,12 +18,10 @@ static class CatchCommand
     string pokemon = args[1];
 
     PokemonApi pokemonApi;
-    try
-    {
+    try {
       pokemonApi = await PokemonApiService.GetPokemonAsync(pokemon);
     }
-    catch (Exception ex)
-    {
+    catch (Exception ex) {
       Console.WriteLine(ex.Message);
       return;
     }

@@ -20,7 +20,8 @@ static class ExploreCommand {
     LocationAreaDetailApi locationAreaDetail;
     try {
       locationAreaDetail = await LocationAreaApiService.GetByNameAsync(locationArea);
-    } catch (Exception ex) {
+    }
+    catch (Exception ex) {
       Console.WriteLine(ex.Message);
       return;
     }

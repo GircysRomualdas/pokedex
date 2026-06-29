@@ -5,18 +5,18 @@ namespace Pokedex.Models.Api;
 
 public class LocationAreaApi {
   [JsonPropertyName("next")]
-  public string? Next {get; init;}
+  public string? Next { get; init; }
 
   [JsonPropertyName("previous")]
-  public string? Previous {get; init;}
+  public string? Previous { get; init; }
 
   public class LocationAreaResult {
     [JsonPropertyName("name")]
-    public string Name {get; init;} = string.Empty;
+    public string Name { get; init; } = string.Empty;
 
     [JsonPropertyName("url")]
-    public string Url {get; init;} = string.Empty;
+    public string Url { get; init; } = string.Empty;
   }
   [JsonPropertyName("results")]
-  public List<LocationAreaResult> Results {get; init;} = new();
+  public List<LocationAreaResult> Results { get; init; } = new();
 }

@@ -3,8 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Pokedex.Models.Api;
 
-public class PokemonApi
-{
+public class PokemonApi {
   [JsonPropertyName("name")]
   public required string Name { get; init; }
 
@@ -38,13 +37,11 @@ public class PokemonApi
   // [JsonPropertyName("stats")]
   // public List<StatInfo> Stats { get; init; } = new();
 
-  public class TypeInfo
-  {
+  public class TypeInfo {
     // [JsonPropertyName("slot")]
     // public required int Slot { get; init; }
 
-    public class TypeData
-    {
+    public class TypeData {
       [JsonPropertyName("name")]
       public required string Name { get; init; }
 
