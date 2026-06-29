@@ -6,7 +6,7 @@ using Pokedex.Commands;
 namespace Pokedex;
 class Program {
   static async Task Main() {
-    Console.WriteLine("Welcome to the Pokedex!");
+    Console.WriteLine(" Welcome to the Pokedex!");
     HelpCommand.Run();
 
     while (true) {
@@ -30,7 +30,7 @@ class Program {
           await ExploreCommand.Run(parts);
           break;
         default:
-          Console.WriteLine("Unknown command");
+          Console.WriteLine(" Unknown command");
           break;
       }
     }

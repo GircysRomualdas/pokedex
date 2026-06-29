@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text.Json;
 
 using Pokedex.Services;
-using Pokedex.Models.API;
+using Pokedex.Models.Api;
 
 namespace Pokedex.Commands;
 
@@ -20,7 +20,7 @@ static class ExploreCommand {
     string path = $"location-area/{locationArea}";
     string responseBody;
     try {
-      responseBody = await PokeAPIServices.FetchAsync(path);
+      responseBody = await PokeApiService.Fetch(path);
     }
     catch (HttpRequestException e) {
         Console.WriteLine($"Network error: {e.Message}");
@@ -30,9 +30,9 @@ static class ExploreCommand {
         return;
     }
     
-    LocationAreaDetailAPI? locationAreaDetailAPI;
+    LocationAreaDetailApi? locationAreaDetailApi;
     try {
-      locationAreaDetailAPI = JsonSerializer.Deserialize<LocationAreaDetailAPI>(responseBody);
+      locationAreaDetailApi = JsonSerializer.Deserialize<LocationAreaDetailApi>(responseBody);
     } catch (JsonException e) {
         Console.WriteLine($"JSON error: {e.Message}");
         return;
@@ -41,14 +41,14 @@ static class ExploreCommand {
         return;
     }
 
-    if (locationAreaDetailAPI is null) {
+    if (locationAreaDetailApi is null) {
       Console.WriteLine("Failed to parse location area.");
       return;
     }
 
-    Console.WriteLine("Found Pokemon:");
+    Console.WriteLine(" Found Pokemon:");
 
-    foreach (var encounter in locationAreaDetailAPI.PokemonEncounters) {
+    foreach (var encounter in locationAreaDetailApi.PokemonEncounters) {
       Console.WriteLine($" - {encounter.Pokemon.Name}");
     }
   }

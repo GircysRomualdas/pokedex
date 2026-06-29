@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
-namespace Pokedex.Models.API;
+namespace Pokedex.Models.Api;
 
-public class LocationAreaAPI {
+public class LocationAreaApi {
   [JsonPropertyName("next")]
   public string? Next {get; init;}
 
