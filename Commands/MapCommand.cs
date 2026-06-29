@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Net.Http;
 
 using Pokedex.Services;
-using Pokedex.Models;
+using Pokedex.Models.API;
 
 namespace Pokedex.Commands;
 static class MapCommand {
@@ -21,10 +21,9 @@ static class MapCommand {
         return;
     }
     
-    LocationArea? locationArea;
-    try
-    {
-      locationArea = JsonSerializer.Deserialize<LocationArea>(responseBody);
+    LocationAreaAPI? locationAreaAPI;
+    try {
+      locationAreaAPI = JsonSerializer.Deserialize<LocationAreaAPI>(responseBody);
     } catch (JsonException e) {
         Console.WriteLine($"JSON error: {e.Message}");
         return;
@@ -33,12 +32,12 @@ static class MapCommand {
         return;
     }
       
-    if (locationArea is null) {
+    if (locationAreaAPI is null) {
       Console.WriteLine("Failed to parse location area.");
       return;
     }
 
-    foreach (var result in locationArea.Results ?? []) {
+    foreach (var result in locationAreaAPI.Results) {
       Console.WriteLine(result.Name);
     }
   }

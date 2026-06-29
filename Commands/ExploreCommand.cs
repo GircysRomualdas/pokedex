@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Text.Json;
 
 using Pokedex.Services;
+using Pokedex.Models.API;
 
 namespace Pokedex.Commands;
 
@@ -27,6 +29,27 @@ static class ExploreCommand {
         Console.WriteLine($"Unexpected error: {e.Message}");
         return;
     }
-    Console.WriteLine($"responseBody: {responseBody}");
+    
+    LocationAreaDetailAPI? locationAreaDetailAPI;
+    try {
+      locationAreaDetailAPI = JsonSerializer.Deserialize<LocationAreaDetailAPI>(responseBody);
+    } catch (JsonException e) {
+        Console.WriteLine($"JSON error: {e.Message}");
+        return;
+    } catch (Exception e) {
+        Console.WriteLine($"Unexpected error: {e.Message}");
+        return;
+    }
+
+    if (locationAreaDetailAPI is null) {
+      Console.WriteLine("Failed to parse location area.");
+      return;
+    }
+
+    Console.WriteLine("Found Pokemon:");
+
+    foreach (var encounter in locationAreaDetailAPI.PokemonEncounters) {
+      Console.WriteLine($" - {encounter.Pokemon.Name}");
+    }
   }
 }

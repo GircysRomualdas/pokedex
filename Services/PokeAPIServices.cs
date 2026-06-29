@@ -11,17 +11,17 @@ static class PokeAPIServices {
   private static readonly HttpClient client = new();
   private const string BaseUrl = "https://pokeapi.co/api/v2";
 
-  private static bool CacheIsValid(CacheItem item, DateTime now) {
-    return now - item.CachedAt < CacheDuration;
+  private static bool CacheIsValid(CacheItem item) {
+    return DateTime.UtcNow - item.CachedAt < CacheDuration;
   }
 
   public static async Task<string> FetchAsync(string path) {
     string fullUrl = $"{BaseUrl}/{path}";
     Console.WriteLine($"fullUrl: {fullUrl}"); // temp for test
-    var now = DateTime.UtcNow;
 
-    if (cache.TryGetValue(fullUrl, out var cacheItem) && CacheIsValid(cacheItem, now)) {
-      return cacheItem.Data;
+    if (cache.TryGetValue(fullUrl, out var cacheItem)) {
+      if (CacheIsValid(cacheItem)) return cacheItem.Data;
+      cache.Remove(fullUrl);
     }
 
     HttpResponseMessage response = await client.GetAsync(fullUrl);
@@ -29,7 +29,7 @@ static class PokeAPIServices {
 
     string responseBody = await response.Content.ReadAsStringAsync();
     
-    cache[fullUrl] = new CacheItem(responseBody, now);
+    cache[fullUrl] = new CacheItem(responseBody, DateTime.UtcNow);
     return responseBody;
   }
 }
