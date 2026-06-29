@@ -17,7 +17,7 @@ static class MapCommand {
     string? url = direction == MapDirection.Next ? gameState.NextLocationUrl : gameState.PreviousLocationUrl;
     LocationAreaApi locationArea;
     try {
-      locationArea = await LocationAreaService.GetPageAsync(url);
+      locationArea = await LocationAreaApiService.GetPageAsync(url);
     } catch (Exception ex) {
       Console.WriteLine(ex.Message);
       return;

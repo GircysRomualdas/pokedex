@@ -36,6 +36,9 @@ class Program {
         case "explore":
           await ExploreCommand.Run(parts);
           break;
+        case "catch":
+          await CatchCommand.Run(parts, gameState);
+          break;
         default:
           Console.WriteLine(" Unknown command");
           break;

@@ -9,5 +9,6 @@ static class HelpCommand {
     Console.WriteLine("   - map: Display the next 20 location areas.");
     Console.WriteLine("   - mapb Display the previous 20 location areas.");
     Console.WriteLine("   - explore <location-area>: List all Pokemon found in a specific location.");
+    Console.WriteLine("   - catch <pokemon>: Attempt to catch a wild Pokemon.");
   }
 }

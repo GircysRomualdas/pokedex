@@ -6,7 +6,7 @@ using Pokedex.Models.Api;
 
 namespace Pokedex.Services;
 
-static class LocationAreaService {
+static class LocationAreaApiService {
   private const string Endpoint = "location-area";
   private const string BaseUrl = "https://pokeapi.co/api/v2";
   private const string defaultUrl = $"{BaseUrl}/{Endpoint}";

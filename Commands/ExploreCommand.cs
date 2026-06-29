@@ -15,14 +15,13 @@ static class ExploreCommand {
       Console.WriteLine("usage: explore <location-area>");
       return;
     }
-
     string locationArea = args[1];
 
     LocationAreaDetailApi locationAreaDetail;
     try {
-      locationAreaDetail = await LocationAreaService.GetByNameAsync(locationArea);
+      locationAreaDetail = await LocationAreaApiService.GetByNameAsync(locationArea);
     } catch (Exception ex) {
-      Console.WriteLine($"Error: {ex.Message}");
+      Console.WriteLine(ex.Message);
       return;
     }
 
