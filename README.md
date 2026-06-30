@@ -22,13 +22,13 @@ dotnet run
 
 ##### Display help:
 
-```bash
+```
 > help
 ```
 
 Output:
 
-```bash
+```
  Commands:
    - exit: Exit the Pokedex REPL.
    - help: Display a help message with all available commands.
@@ -42,13 +42,13 @@ Output:
 
 ##### View map:
 
-```bash
+```
 > map
 ```
 
 Output:
 
-```bash
+```
  canalave-city-area
  eterna-city-area
  pastoria-city-area
@@ -73,13 +73,13 @@ Output:
 
 ##### Explore a location:
 
-```bash
+```
 > explore canalave-city-area
 ```
 
 Output:
 
-```bash
+```
  Found Pokemon:
  - tentacool
  - tentacruel
@@ -96,39 +96,39 @@ Output:
 
 ##### Catch a Pokemon:
 
-```bash
+```
 > catch tentacool
 ```
 
 Output:
 
-```bash
+```
 Throwing a Pokeball at tentacool...
 tentacool was caught!
 ```
 
 ##### View your Pokedex:
 
-```bash
+```
 > pokedex
 ```
 
 Output:
 
-```bash
+```
  Your Pokedex:
  - tentacool water
 ```
 
 ##### Exit the application:
 
-```bash
+```
 > exit
 ```
 
 Output:
 
-```bash
+```
  Exiting Pokedex!
 ```
 
