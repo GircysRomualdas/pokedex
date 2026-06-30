@@ -6,7 +6,7 @@ namespace Pokedex.Services;
 
 static class PokeApiSerializer {
   public static async Task<T> GetAsync<T>(string url) {
-    string responseBody = await PokeApiClient.Fetch(url);
+    string responseBody = await PokeApiClient.FetchAsync(url);
 
     T? data;
     try {
