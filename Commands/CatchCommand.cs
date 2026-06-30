@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 
 using Pokedex.State;
-using Pokedex.Models.Api;
 using Pokedex.Services;
 using Pokedex.Models.Domain;
 
@@ -15,21 +14,18 @@ static class CatchCommand {
       Console.WriteLine("usage: catch <pokemon>");
       return;
     }
-    string pokemon = args[1];
+    string name = args[1];
 
-    PokemonApi pokemonApi;
+    Pokemon pokemon;
     try {
-      pokemonApi = await PokemonApiService.GetPokemonAsync(pokemon);
+      pokemon = await PokemonService.GetPokemonAsync(name);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
       return;
     }
 
-
-
-    Console.WriteLine($"Throwing a Pokeball at {pokemonApi.Name}...");
-    gameState.Pokedex.Add(new Pokemon { Name = pokemonApi.Name, Type = pokemonApi.Types[0].Type.Name });
-    Console.WriteLine($"{pokemonApi.Name} was caught!");
+    Console.WriteLine($"Throwing a Pokeball at {pokemon.Name}...");
+    Console.WriteLine($"{pokemon.Name} was caught!");
   }
 }
