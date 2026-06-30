@@ -1,3 +1,4 @@
+using System.Linq;
 using Pokedex.Models.Api;
 using Pokedex.Models.Domain;
 
@@ -7,7 +8,9 @@ static class PokemonMapper {
   public static Pokemon ToDomain(PokemonApi api) {
     return new Pokemon {
       Name = api.Name,
-      Type = api.Types[0].Type.Name
+      Types = api.Types.Select(t => t.Type.Name).ToList(),
+      Height = api.Height,
+      Weight = api.Weight
     };
   }
 }

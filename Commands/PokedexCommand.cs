@@ -13,7 +13,7 @@ static class PokedexCommand {
 
     Console.WriteLine(" Your Pokedex:");
     foreach (var pokemon in gameState.Pokedex) {
-      Console.WriteLine($" - {pokemon.Name} {pokemon.Type}");
+      Console.WriteLine($" - {pokemon.Name} ({string.Join("/", pokemon.Types)})");
     }
   }
 }

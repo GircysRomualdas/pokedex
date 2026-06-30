@@ -26,6 +26,7 @@ static class CatchCommand {
     }
 
     Console.WriteLine($"Throwing a Pokeball at {pokemon.Name}...");
+    gameState.Pokedex.Add(pokemon);
     Console.WriteLine($"{pokemon.Name} was caught!");
   }
 }
