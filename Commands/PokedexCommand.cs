@@ -1,5 +1,5 @@
 using System;
-
+using System.Linq;
 using Pokedex.State;
 
 namespace Pokedex.Commands;
@@ -11,9 +11,9 @@ static class PokedexCommand {
       return;
     }
 
-    Console.WriteLine(" Your Pokedex:");
-    foreach (var pokemon in gameState.Pokedex) {
-      Console.WriteLine($" - {pokemon.Name} ({string.Join("/", pokemon.Types)})");
+    Console.WriteLine("Your Pokedex:");
+    foreach (var pokemon in gameState.Pokedex.OrderBy(p => p.Name)) {
+      Console.WriteLine($" - {pokemon.Name,-12} [{string.Join("/", pokemon.Types)}]");
     }
   }
 }

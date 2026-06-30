@@ -10,7 +10,8 @@ static class PokemonMapper {
       Name = api.Name,
       Types = api.Types.Select(t => t.Type.Name).ToList(),
       Height = api.Height,
-      Weight = api.Weight
+      Weight = api.Weight,
+      BaseExperience = api.BaseExperience
     };
   }
 }

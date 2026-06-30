@@ -11,7 +11,7 @@ class Program {
   static async Task Main() {
     GameState gameState = new();
 
-    Console.WriteLine(" Welcome to the Pokedex!");
+    Console.WriteLine("Welcome to the Pokedex!");
     HelpCommand.Run();
 
     while (true) {

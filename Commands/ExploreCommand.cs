@@ -24,7 +24,7 @@ static class ExploreCommand {
       return;
     }
 
-    Console.WriteLine(" Found Pokemon:");
+    Console.WriteLine("Wild Pokémon found:");
     foreach (var encounter in locationAreaDetail.PokemonEncounters) {
       Console.WriteLine($" - {encounter.Pokemon.Name}");
     }

@@ -24,9 +24,15 @@ static class CatchCommand {
       Console.WriteLine(ex.Message);
       return;
     }
-
     Console.WriteLine($"Throwing a Pokeball at {pokemon.Name}...");
+
+    if (!CatchService.TryCatch(pokemon)) {
+      Console.WriteLine($"{pokemon.Name} escaped!");
+      return;
+    }
+
     gameState.Pokedex.Add(pokemon);
     Console.WriteLine($"{pokemon.Name} was caught!");
+    Console.WriteLine($"Registered {pokemon.Name} in your Pokedex!");
   }
 }
