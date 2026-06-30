@@ -1,7 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Text.Json;
 
 using Pokedex.Services;
 using Pokedex.Models.Api;
