@@ -5,6 +5,7 @@ Command-line Pokemon exploration tool built in C# that allows users to explore t
 ## Requirements
 
 - .NET SDK 10
+- Docker
 
 ## Installation
 
@@ -18,9 +19,9 @@ Command-line Pokemon exploration tool built in C# that allows users to explore t
 dotnet run
 ```
 
-#### Example Session
+## Example Session
 
-##### Display help:
+### Display help:
 
 ```
 > help
@@ -40,7 +41,7 @@ Output:
 
 ```
 
-##### View map:
+### View map:
 
 ```
 > map
@@ -71,7 +72,7 @@ Output:
  mt-coronet-1f-from-exterior
 ```
 
-##### Explore a location:
+### Explore a location:
 
 ```
 > explore canalave-city-area
@@ -94,7 +95,7 @@ Output:
  - lumineon
 ```
 
-##### Catch a Pokemon:
+### Catch a Pokemon:
 
 ```
 > catch tentacool
@@ -107,7 +108,7 @@ Throwing a Pokeball at tentacool...
 tentacool was caught!
 ```
 
-##### View your Pokedex:
+### View your Pokedex:
 
 ```
 > pokedex
@@ -120,7 +121,7 @@ Output:
  - tentacool water
 ```
 
-##### Exit the application:
+### Exit the application:
 
 ```
 > exit
@@ -144,3 +145,13 @@ Output:
 | `catch <pokemon>`    | Attempt to catch a wild Pokemon                    |
 | `inspect <pokemon>`  | View detailed information about a caught Pokemon   |
 | `pokedex`            | Display all Pokemon you've caught                  |
+
+---
+
+Temp Notes
+To Do:
+
+- Add DB (PostgreSQL)
+- Add Dokeker (To run DB and Unit test in GitHub actions)
+- Add Unit test
+- Add CI/CD

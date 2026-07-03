@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 using Pokedex.State;
+using Pokedex.Infrastructure;
 
 using Pokedex.Commands;
 
@@ -9,6 +10,12 @@ namespace Pokedex;
 
 class Program {
   static async Task Main() {
+    // temp 
+    Console.WriteLine("------------------------");
+    Database.runTest();
+    Console.WriteLine("------------------------");
+    // temp
+
     GameState gameState = new();
 
     Console.WriteLine("Welcome to the Pokedex!");
