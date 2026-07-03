@@ -1,18 +1,20 @@
 using System;
+using System.Threading.Tasks;
 using Npgsql;
 
 namespace Pokedex.Infrastructure;
 
 static class Database {
-  private const string connectionString = "Host=localhost;Port=5432;Database=pokedex;Username=postgres;Password=postgres";
+  private const string connectionString = "Host=localhost;Port=5432;Database=pokedex;Username=postgres;Password=postgres"; // should I use "appsettings.json" or not?
 
-  public static void runTest() {
-    using var connection = new NpgsqlConnection(connectionString);
-    connection.Open();
+  public static async Task RunTest() {
+    await using var conn = new NpgsqlConnection(connectionString);
+    await conn.OpenAsync();
 
-    var cmd = new NpgsqlCommand("SELECT version();", connection);
+    await using var cmd = new NpgsqlCommand("SELECT version();", conn);
 
-    string? version = (string?)cmd.ExecuteScalar();
+    var result = await cmd.ExecuteScalarAsync();
+    string? version = result?.ToString();
 
     Console.WriteLine(version);
   }

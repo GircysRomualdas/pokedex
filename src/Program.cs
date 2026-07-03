@@ -12,8 +12,9 @@ class Program {
   static async Task Main() {
     // temp 
     Console.WriteLine("------------------------");
-    Database.runTest();
+    await Database.RunTest();
     Console.WriteLine("------------------------");
+    Migrations.Run();
     // temp
 
     GameState gameState = new();
