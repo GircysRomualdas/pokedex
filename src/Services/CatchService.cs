@@ -1,5 +1,4 @@
 using System;
-
 using Pokedex.Models.Domain;
 
 namespace Pokedex.Services;

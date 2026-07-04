@@ -5,6 +5,8 @@ using Pokedex.State;
 using Pokedex.Infrastructure;
 
 using Pokedex.Commands;
+using Pokedex.Models.Domain;
+using System.Collections.Generic;
 
 namespace Pokedex;
 
@@ -13,8 +15,18 @@ class Program {
     // temp 
     Console.WriteLine("------------------------");
     await Database.RunTest();
+    DatabaseMigrator.Run();
+    await Database.GetPokemons();
+    var pokemon = new Pokemon {
+      Name = "Test name",
+      Types = new List<string> { "A", "B" },
+      Height = 111,
+      Weight = 222,
+      BaseExperience = 333
+    };
+    await Database.InsertPokemon(pokemon);
+    await Database.GetPokemons();
     Console.WriteLine("------------------------");
-    Migrations.Run();
     // temp
 
     GameState gameState = new();

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Pokedex.State;
 using Pokedex.Services;
 using Pokedex.Models.Domain;
+using Pokedex.Models.Api;
+using Pokedex.Infrastructure;
 
 namespace Pokedex.Commands;
 
@@ -30,6 +32,8 @@ static class CatchCommand {
       Console.WriteLine($"{pokemon.Name} escaped!");
       return;
     }
+
+    pokemon = await PokemonRepository.InsertAsync(pokemon);
 
     gameState.Pokedex.Add(pokemon);
     Console.WriteLine($"{pokemon.Name} was caught!");

@@ -3,7 +3,7 @@ using DbUp;
 
 namespace Pokedex.Infrastructure;
 
-static class Migrations {
+static class DatabaseMigrator {
   public static void Run() {
     string connectionString = "Host=localhost;Port=5432;Database=pokedex;Username=postgres;Password=postgres";
 
