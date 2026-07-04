@@ -35,7 +35,6 @@ static class CatchCommand {
 
     pokemon = await PokemonRepository.InsertAsync(pokemon);
 
-    gameState.Pokedex.Add(pokemon);
     Console.WriteLine($"{pokemon.Name} was caught!");
     Console.WriteLine($"Registered {pokemon.Name} in your Pokedex!");
   }
