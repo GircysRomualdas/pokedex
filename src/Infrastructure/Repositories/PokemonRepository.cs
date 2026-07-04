@@ -4,7 +4,6 @@ using Dapper;
 using Npgsql;
 using Pokedex.Models.Domain;
 using System.Collections.Generic;
-using Pokedex.Models.Api;
 using System.Linq;
 
 namespace Pokedex.Infrastructure;
@@ -16,16 +15,21 @@ public static class PokemonRepository {
     await using var conn = new NpgsqlConnection(connectionString);
     await conn.OpenAsync();
 
-    var pokemons = await conn.QueryAsync<Pokemon>("""
-      SELECT  id,
-              name,
-              height,
-              weight,
-              base_experience
+    var rows = await conn.QueryAsync<PokemonRow>("""
+      SELECT id, name, types, height, weight, base_experience
       FROM pokemons;
     """);
 
-    return pokemons.ToList();
+    var result = rows.Select(r => new Pokemon {
+      Id = r.id,
+      Name = r.name,
+      Types = r.types.Split(',').ToList(),
+      Height = r.height,
+      Weight = r.weight,
+      BaseExperience = r.base_experience
+    }).ToList();
+
+    return result;
   }
 
   public static async Task<Pokemon> InsertAsync(Pokemon pokemon) {
@@ -33,10 +37,16 @@ public static class PokemonRepository {
     await conn.OpenAsync();
 
     var id = await conn.ExecuteScalarAsync<int>("""
-      INSERT INTO pokemons (name, height, weight, base_experience)
-      VALUES (@Name, @Height, @Weight, @BaseExperience)
+      INSERT INTO pokemons (name, types, height, weight, base_experience)
+      VALUES (@Name, @Types, @Height, @Weight, @BaseExperience)
       RETURNING id;
-    """, pokemon);
+    """, new {
+      pokemon.Name,
+      Types = string.Join(",", pokemon.Types),
+      pokemon.Height,
+      pokemon.Weight,
+      pokemon.BaseExperience
+    });
 
     pokemon.Id = id;
     return pokemon;
