@@ -11,6 +11,12 @@ Command-line Pokemon exploration tool built in C# that allows users to explore t
 
 1. Clone the repository.
 
+2. Run DB:
+
+```bash
+docker compose up -d
+```
+
 ## Usage
 
 ### Run the application
@@ -155,3 +161,4 @@ To Do:
 - Add Dokeker (To run DB and Unit test in GitHub actions)
 - Add Unit test
 - Add CI/CD
+- Maybe change DB to mongoDB ?

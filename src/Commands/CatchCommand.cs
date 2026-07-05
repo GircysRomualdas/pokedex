@@ -10,7 +10,7 @@ using Pokedex.Infrastructure;
 namespace Pokedex.Commands;
 
 static class CatchCommand {
-  public static async Task Run(string[] args, GameState gameState) {
+  public static async Task Run(string[] args) {
     if (args.Length < 2) {
       Console.WriteLine("Wrong number of arguments!");
       Console.WriteLine("usage: catch <pokemon>");
@@ -33,7 +33,7 @@ static class CatchCommand {
       return;
     }
 
-    pokemon = await PokemonRepository.InsertAsync(pokemon);
+    pokemon = await PokemonRepository.InsertPokemonAsync(pokemon);
 
     Console.WriteLine($"{pokemon.Name} was caught!");
     Console.WriteLine($"Registered {pokemon.Name} in your Pokedex!");

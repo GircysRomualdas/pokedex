@@ -2,17 +2,12 @@
 using System.Threading.Tasks;
 
 using Pokedex.State;
-using Pokedex.Infrastructure;
-
 using Pokedex.Commands;
-using Pokedex.Models.Domain;
-using System.Collections.Generic;
 
 namespace Pokedex;
 
 class Program {
   static async Task Main() {
-    DatabaseMigrator.Run();
     GameState gameState = new();
 
     Console.WriteLine("Welcome to the Pokedex!");
@@ -42,7 +37,7 @@ class Program {
           await ExploreCommand.Run(parts);
           break;
         case "catch":
-          await CatchCommand.Run(parts, gameState);
+          await CatchCommand.Run(parts);
           break;
         case "pokedex":
           await PokedexCommand.Run();

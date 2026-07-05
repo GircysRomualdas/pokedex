@@ -1,12 +1,11 @@
 services:
-  postgres:
-    image: postgres:18
-    container_name: pokedex-db
+  mongo:
+    image: mongo
+    container_name: mongodb
 
     environment:
-      POSTGRES_DB: pokedex
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass123
 
     ports:
-      - "5432:5432"
+      - "27017:27017"

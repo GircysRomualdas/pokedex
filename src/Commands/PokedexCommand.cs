@@ -9,7 +9,7 @@ namespace Pokedex.Commands;
 
 static class PokedexCommand {
   public static async Task Run() {
-    List<Pokemon> pokemons = await PokemonRepository.GetAllAsync();
+    List<Pokemon> pokemons = await PokemonRepository.GetPokemonsAsync();
     if (pokemons.Count == 0) {
       Console.WriteLine("Your Pokedex is empty. Catch some Pokemon first!");
       return;
