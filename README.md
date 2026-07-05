@@ -151,14 +151,3 @@ Output:
 | `catch <pokemon>`    | Attempt to catch a wild Pokemon                    |
 | `inspect <pokemon>`  | View detailed information about a caught Pokemon   |
 | `pokedex`            | Display all Pokemon you've caught                  |
-
----
-
-Temp Notes
-To Do:
-
-- Add DB (PostgreSQL)
-- Add Dokeker (To run DB and Unit test in GitHub actions)
-- Add Unit test
-- Add CI/CD
-- Maybe change DB to mongoDB ?
