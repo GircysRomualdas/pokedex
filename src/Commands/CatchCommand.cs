@@ -1,11 +1,9 @@
 using System;
 using System.Threading.Tasks;
 
-using Pokedex.State;
 using Pokedex.Services;
-using Pokedex.Models.Domain;
-using Pokedex.Models.Api;
-using Pokedex.Infrastructure;
+using Pokedex.Domain;
+using Pokedex.Infrastructure.Repositories;
 
 namespace Pokedex.Commands;
 

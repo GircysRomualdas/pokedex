@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 
 using Pokedex.Services;
-using Pokedex.Models.Api;
+using Pokedex.Infrastructure.Api;
 
 namespace Pokedex.Commands;
 

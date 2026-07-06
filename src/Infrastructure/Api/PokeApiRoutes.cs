@@ -1,4 +1,4 @@
-namespace Pokedex.Services;
+namespace Pokedex.Infrastructure.Api;
 
 static class PokeApiRoutes {
   private const string BaseUrl = "https://pokeapi.co/api/v2";

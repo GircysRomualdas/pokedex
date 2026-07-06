@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Pokedex.Models.Api;
+namespace Pokedex.Infrastructure.Api;
 
 public class LocationAreaDetailApi {
   [JsonPropertyName("name")]
@@ -11,8 +11,8 @@ public class LocationAreaDetailApi {
   public class Pokemon {
     [JsonPropertyName("name")]
     public required string Name { get; init; }
-    [JsonPropertyName("url")]
-    public required string Url { get; init; }
+    // [JsonPropertyName("url")]
+    // public required string Url { get; init; }
   }
   public class PokemonEncounter {
     [JsonPropertyName("pokemon")]

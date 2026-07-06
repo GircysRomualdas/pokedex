@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Pokedex.Infrastructure;
-using Pokedex.Models.Domain;
+using Pokedex.Infrastructure.Repositories;
+using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 

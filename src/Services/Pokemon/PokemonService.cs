@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 
-using Pokedex.Models.Api;
-using Pokedex.Models.Domain;
+using Pokedex.Infrastructure.Api;
+using Pokedex.Domain;
 
 namespace Pokedex.Services;
 

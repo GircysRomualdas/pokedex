@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Pokedex.Models.Domain;
+namespace Pokedex.Domain;
 
 public class Pokemon {
   [BsonId]

@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Pokedex.Services;
+namespace Pokedex.Infrastructure.Api;
 
 static class PokeApiClient {
   private static readonly HttpClient client = new();

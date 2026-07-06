@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Pokedex.Services;
+namespace Pokedex.Infrastructure.Api;
 
 static class MemoryCacheService {
   private record CacheItem(string Data, DateTime CachedAt);

@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Pokedex.Services;
+namespace Pokedex.Infrastructure.Api;
 
 static class PokeApiSerializer {
   public static async Task<T> GetAsync<T>(string url) {

@@ -1,8 +1,7 @@
 using System.Linq;
-using Pokedex.Models.Api;
-using Pokedex.Models.Domain;
+using Pokedex.Domain;
 
-namespace Pokedex.Services;
+namespace Pokedex.Infrastructure.Api;
 
 static class PokemonMapper {
   public static Pokemon ToDomain(PokemonApi api) {

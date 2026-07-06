@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using Pokedex.Models.Domain;
+using Pokedex.Domain;
 
-namespace Pokedex.Infrastructure;
+namespace Pokedex.Infrastructure.Repositories;
 
 static class PokemonRepository {
   private const string connString = "mongodb://admin:pass123@localhost:27017";

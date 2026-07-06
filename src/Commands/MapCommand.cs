@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 
 using Pokedex.Services;
-using Pokedex.Models.Api;
 using Pokedex.State;
+using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 
@@ -15,9 +15,9 @@ static class MapCommand {
   }
   public static async Task Run(GameState gameState, MapDirection direction) {
     string? url = direction == MapDirection.Next ? gameState.NextLocationUrl : gameState.PreviousLocationUrl;
-    LocationAreaApi locationArea;
+    LocationArea locationArea;
     try {
-      locationArea = await LocationAreaApiService.GetPageAsync(url);
+      locationArea = await LocationAreaService.GetLocationAreaAsync(url);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
@@ -27,9 +27,8 @@ static class MapCommand {
     gameState.NextLocationUrl = locationArea.Next;
     gameState.PreviousLocationUrl = locationArea.Previous;
 
-    foreach (var result in locationArea.Results) {
-      Console.WriteLine($" {result.Name}");
+    foreach (var area in locationArea.Areas) {
+      Console.WriteLine($" {area}");
     }
   }
 }
-
