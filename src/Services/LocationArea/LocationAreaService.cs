@@ -10,4 +10,9 @@ static class LocationAreaService {
     LocationAreaApi locationAreaApi = await LocationAreaApiService.GetPageAsync(url);
     return LocationAreaMapper.ToDomain(locationAreaApi);
   }
+
+  static public async Task<LocationAreaDetail> GetLocationAreaDetailAsync(string locationArea) {
+    LocationAreaDetailApi locationAreaDetailApi = await LocationAreaApiService.GetByNameAsync(locationArea);
+    return LocationAreaDetailMapper.ToDomain(locationAreaDetailApi);
+  }
 }

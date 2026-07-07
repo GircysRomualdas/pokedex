@@ -11,6 +11,16 @@ static class PokemonRepository {
   private static readonly IMongoDatabase database = client.GetDatabase("PokedexDb");
   private static readonly IMongoCollection<Pokemon> collection = database.GetCollection<Pokemon>("pokemon");
 
+  public static async Task<bool> CheckConnectionAsync() {
+    try {
+      await client.ListDatabaseNamesAsync();
+      return true;
+    }
+    catch (MongoException) {
+      return false;
+    }
+  }
+
   public static async Task<Pokemon> InsertPokemonAsync(Pokemon pokemon) {
     await collection.InsertOneAsync(pokemon);
     return pokemon;

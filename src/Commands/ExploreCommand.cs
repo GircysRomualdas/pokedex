@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 
 using Pokedex.Services;
-using Pokedex.Infrastructure.Api;
+using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 
@@ -15,9 +15,9 @@ static class ExploreCommand {
     }
     string locationArea = args[1];
 
-    LocationAreaDetailApi locationAreaDetail;
+    LocationAreaDetail locationAreaDetail;
     try {
-      locationAreaDetail = await LocationAreaApiService.GetByNameAsync(locationArea);
+      locationAreaDetail = await LocationAreaService.GetLocationAreaDetailAsync(locationArea);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
@@ -25,8 +25,8 @@ static class ExploreCommand {
     }
 
     Console.WriteLine("Wild Pokemon found:");
-    foreach (var encounter in locationAreaDetail.PokemonEncounters) {
-      Console.WriteLine($" - {encounter.Pokemon.Name}");
+    foreach (var pokemon in locationAreaDetail.PokemonEncounters) {
+      Console.WriteLine($" - {pokemon}");
     }
   }
 }

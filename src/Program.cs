@@ -3,12 +3,18 @@ using System.Threading.Tasks;
 
 using Pokedex.State;
 using Pokedex.Commands;
+using Pokedex.Infrastructure.Repositories;
 
 namespace Pokedex;
 
 class Program {
   static async Task Main() {
     GameState gameState = new();
+
+    if (!await PokemonRepository.CheckConnectionAsync()) {
+      Console.WriteLine("Could not connect to Pokedex database.");
+      return;
+    }
 
     Console.WriteLine("Welcome to the Pokedex!");
     HelpCommand.Run();
