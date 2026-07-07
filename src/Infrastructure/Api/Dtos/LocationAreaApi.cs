@@ -13,9 +13,6 @@ public class LocationAreaApi {
   public class LocationAreaResult {
     [JsonPropertyName("name")]
     public string Name { get; init; } = string.Empty;
-
-    // [JsonPropertyName("url")]
-    // public string Url { get; init; } = string.Empty;
   }
   [JsonPropertyName("results")]
   public List<LocationAreaResult> Results { get; init; } = new();

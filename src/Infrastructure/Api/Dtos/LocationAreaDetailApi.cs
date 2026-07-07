@@ -11,8 +11,6 @@ public class LocationAreaDetailApi {
   public class Pokemon {
     [JsonPropertyName("name")]
     public required string Name { get; init; }
-    // [JsonPropertyName("url")]
-    // public required string Url { get; init; }
   }
   public class PokemonEncounter {
     [JsonPropertyName("pokemon")]

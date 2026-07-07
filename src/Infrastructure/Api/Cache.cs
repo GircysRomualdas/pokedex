@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Pokedex.Infrastructure.Api;
 
-static class MemoryCacheService {
+static class Cache {
   private record CacheItem(string Data, DateTime CachedAt);
   private static readonly Dictionary<string, CacheItem> cache = new();
   private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(10);

@@ -2,14 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Pokedex.Infrastructure.Repositories;
+
 using Pokedex.Domain;
+using Pokedex.Services;
 
 namespace Pokedex.Commands;
 
 static class PokedexCommand {
   public static async Task Run() {
-    List<Pokemon> pokemons = await PokemonRepository.GetPokemonsAsync();
+    List<Pokemon> pokemons;
+    try {
+      pokemons = await PokemonService.GetPokemonsAsync();
+    }
+    catch (Exception ex) {
+      Console.WriteLine(ex.Message);
+      return;
+    }
+
     if (pokemons.Count == 0) {
       Console.WriteLine("Your Pokedex is empty. Catch some Pokemon first!");
       return;

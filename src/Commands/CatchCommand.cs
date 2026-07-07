@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 using Pokedex.Services;
 using Pokedex.Domain;
-using Pokedex.Infrastructure.Repositories;
 
 namespace Pokedex.Commands;
 
@@ -17,8 +16,9 @@ static class CatchCommand {
     string name = args[1];
 
     Pokemon pokemon;
+    bool isCaught;
     try {
-      pokemon = await PokemonService.GetPokemonAsync(name);
+      (isCaught, pokemon) = await CatchService.CatchPokemonAsync(name);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
@@ -26,12 +26,10 @@ static class CatchCommand {
     }
     Console.WriteLine($"Throwing a Pokeball at {pokemon.Name}...");
 
-    if (!CatchService.TryCatch(pokemon)) {
+    if (!isCaught) {
       Console.WriteLine($"{pokemon.Name} escaped!");
       return;
     }
-
-    pokemon = await PokemonRepository.InsertPokemonAsync(pokemon);
 
     Console.WriteLine($"{pokemon.Name} was caught!");
     Console.WriteLine($"Registered {pokemon.Name} in your Pokedex!");
