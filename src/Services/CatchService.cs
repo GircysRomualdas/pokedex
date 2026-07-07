@@ -8,7 +8,7 @@ namespace Pokedex.Services;
 
 static class CatchService {
   private static bool RollCatch(Pokemon pokemon) {
-    int difficulty = pokemon.BaseExperience > 200 ? 200 : pokemon.BaseExperience;
+    int difficulty = Math.Min(pokemon.BaseExperience, 199);
     int roll = Random.Shared.Next(0, 200);
     return roll >= difficulty;
   }

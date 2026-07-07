@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace Pokedex.Domain;
+namespace Pokedex.Infrastructure.Repositories.Models;
 
-public class Pokemon {
+public class PokemonDocument {
+  [BsonId]
+  [BsonRepresentation(BsonType.ObjectId)]
+  public string? Id { get; set; }
   public required string Name { get; init; }
   public List<string> Types { get; init; } = new();
   public required int Height { get; init; }
