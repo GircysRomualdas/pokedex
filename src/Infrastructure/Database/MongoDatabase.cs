@@ -1,6 +1,6 @@
 using MongoDB.Driver;
 
-namespace Pokedex.Infrastructure.Repositories;
+namespace Pokedex.Infrastructure.Database;
 
 class MongoDatabase {
   private readonly IMongoDatabase database;

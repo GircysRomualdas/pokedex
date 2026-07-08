@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
+namespace Pokedex.Infrastructure.Database;
+
 class MongoDbHealthCheck {
   private readonly IMongoDatabase database;
   public MongoDbHealthCheck(IMongoDatabase database) {
