@@ -5,9 +5,9 @@ using Pokedex.Infrastructure.Api;
 namespace Pokedex.Services;
 
 class PokemonApiService {
-  private readonly ApiClient apiClient;
+  private readonly IApiClient apiClient;
 
-  public PokemonApiService(ApiClient apiClient) {
+  public PokemonApiService(IApiClient apiClient) {
     this.apiClient = apiClient;
   }
   public async Task<PokemonApi> GetPokemonAsync(string name) {

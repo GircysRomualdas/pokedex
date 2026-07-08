@@ -5,8 +5,8 @@ using Pokedex.Infrastructure.Api;
 namespace Pokedex.Services;
 
 class LocationAreaApiService {
-  private readonly ApiClient apiClient;
-  public LocationAreaApiService(ApiClient apiClient) {
+  private readonly IApiClient apiClient;
+  public LocationAreaApiService(IApiClient apiClient) {
     this.apiClient = apiClient;
   }
   public async Task<LocationAreaApi> GetPageAsync(string? url) {
