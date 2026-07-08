@@ -4,19 +4,45 @@ using System.Threading.Tasks;
 using Pokedex.State;
 using Pokedex.Commands;
 using Pokedex.Infrastructure.Repositories;
+using System.Net.Http;
+using Pokedex.Infrastructure.Api;
+using Pokedex.Services;
+using Pokedex.Infrastructure.Repositories.Models;
 
 namespace Pokedex;
 
 class Program {
   static async Task Main() {
-    if (!await PokemonRepository.CheckConnectionAsync()) {
+    var mongoDatabase = new MongoDatabase(
+      "mongodb://admin:pass123@localhost:27017",
+      "PokedexDb"
+    );
+
+    var healthCheck = new MongoDbHealthCheck(mongoDatabase.Database);
+    if (!await healthCheck.CheckAsync()) {
       Console.WriteLine("Could not connect to Pokedex database.");
       return;
     }
 
-    GameState gameState = new() {
-      Pokedex = await PlayerService.LoadPokedexAsync()
+    var pokemonRepository = new PokemonRepository(mongoDatabase.GetCollection<PokemonDocument>("pokemon"));
+
+    var apiClient = new ApiClient(new HttpClient());
+
+    var pokemonService = new PokemonService(new PokemonApiService(apiClient), pokemonRepository);
+
+    var catchService = new CatchService(pokemonService, pokemonRepository);
+
+    var locationAreaService = new LocationAreaService(new LocationAreaApiService(apiClient));
+
+    var gameState = new GameState {
+      Pokedex = await pokemonService.GetPokemonsAsync()
     };
+
+    var catchCommand = new CatchCommand(catchService, gameState);
+    var exploreCommand = new ExploreCommand(locationAreaService);
+    var inspectCommand = new InspectCommand(gameState);
+    var mapCommand = new MapCommand(gameState, locationAreaService);
+    var pokedexCommand = new PokedexCommand(gameState);
 
     Console.WriteLine("Welcome to the Pokedex!");
     HelpCommand.Run();
@@ -36,25 +62,25 @@ class Program {
           HelpCommand.Run();
           break;
         case "map":
-          await MapCommand.Run(gameState, MapCommand.MapDirection.Next);
+          await mapCommand.Run(MapDirection.Next);
           break;
         case "mapb":
-          await MapCommand.Run(gameState, MapCommand.MapDirection.Previous);
+          await mapCommand.Run(MapDirection.Previous);
           break;
         case "explore":
-          await ExploreCommand.Run(parts);
+          await exploreCommand.Run(parts);
           break;
         case "catch":
-          await CatchCommand.Run(gameState, parts);
+          await catchCommand.Run(parts);
           break;
         case "pokedex":
-          PokedexCommand.Run(gameState);
+          pokedexCommand.Run();
           break;
         case "inspect":
-          InspectCpmmand.Run(gameState, parts);
+          inspectCommand.Run(parts);
           break;
         default:
-          Console.WriteLine(" Unknown command");
+          Console.WriteLine("Unknown command");
           break;
       }
     }

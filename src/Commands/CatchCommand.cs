@@ -7,8 +7,14 @@ using Pokedex.State;
 
 namespace Pokedex.Commands;
 
-static class CatchCommand {
-  public static async Task Run(GameState gameState, string[] args) {
+class CatchCommand {
+  private readonly CatchService catchService;
+  private readonly GameState gameState;
+  public CatchCommand(CatchService catchService, GameState gameState) {
+    this.catchService = catchService;
+    this.gameState = gameState;
+  }
+  public async Task Run(string[] args) {
     if (args.Length < 2) {
       Console.WriteLine("Wrong number of arguments!");
       Console.WriteLine("usage: catch <pokemon>");
@@ -19,7 +25,7 @@ static class CatchCommand {
     Pokemon pokemon;
     bool isCaught;
     try {
-      (isCaught, pokemon) = await CatchService.CatchPokemonAsync(name);
+      (isCaught, pokemon) = await catchService.CatchPokemonAsync(name);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);

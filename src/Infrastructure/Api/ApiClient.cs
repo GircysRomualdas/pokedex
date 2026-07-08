@@ -3,10 +3,14 @@ using System.Threading.Tasks;
 
 namespace Pokedex.Infrastructure.Api;
 
-static class ApiClient {
-  private static readonly HttpClient client = new();
+class ApiClient {
+  private readonly HttpClient client;
 
-  public static async Task<string> FetchAsync(string url) {
+  public ApiClient(HttpClient client) {
+    this.client = client;
+  }
+
+  public async Task<string> FetchAsync(string url) {
     if (Cache.TryGet(url, out var data)) return data;
 
     try {

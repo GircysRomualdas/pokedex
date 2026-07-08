@@ -7,17 +7,18 @@ using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 
-static class MapCommand {
-
-  public enum MapDirection {
-    Next,
-    Previous
+class MapCommand {
+  private readonly GameState gameState;
+  private readonly LocationAreaService locationAreaService;
+  public MapCommand(GameState gameState, LocationAreaService locationAreaService) {
+    this.gameState = gameState;
+    this.locationAreaService = locationAreaService;
   }
-  public static async Task Run(GameState gameState, MapDirection direction) {
+  public async Task Run(MapDirection direction) {
     string? url = direction == MapDirection.Next ? gameState.NextLocationUrl : gameState.PreviousLocationUrl;
     LocationArea locationArea;
     try {
-      locationArea = await LocationAreaService.GetLocationAreaAsync(url);
+      locationArea = await locationAreaService.GetLocationAreaAsync(url);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);

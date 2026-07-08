@@ -5,8 +5,13 @@ using Pokedex.State;
 
 namespace Pokedex.Commands;
 
-static class InspectCpmmand {
-  public static void Run(GameState gameState, string[] args) {
+class InspectCommand {
+  private readonly GameState gameState;
+  public InspectCommand(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public void Run(string[] args) {
     if (args.Length < 2) {
       Console.WriteLine("Wrong number of arguments!");
       Console.WriteLine("usage: inspect <pokemon>");

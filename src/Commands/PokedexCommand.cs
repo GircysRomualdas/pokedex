@@ -5,8 +5,13 @@ using Pokedex.State;
 
 namespace Pokedex.Commands;
 
-static class PokedexCommand {
-  public static void Run(GameState gameState) {
+class PokedexCommand {
+  private readonly GameState gameState;
+  public PokedexCommand(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public void Run() {
     if (gameState.Pokedex.Count == 0) {
       Console.WriteLine("Your Pokedex is empty. Catch some Pokemon first!");
       return;

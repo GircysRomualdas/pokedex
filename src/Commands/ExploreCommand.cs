@@ -6,8 +6,12 @@ using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 
-static class ExploreCommand {
-  public static async Task Run(string[] args) {
+class ExploreCommand {
+  private readonly LocationAreaService locationAreaService;
+  public ExploreCommand(LocationAreaService locationAreaService) {
+    this.locationAreaService = locationAreaService;
+  }
+  public async Task Run(string[] args) {
     if (args.Length < 2) {
       Console.WriteLine("Wrong number of arguments!");
       Console.WriteLine("usage: explore <location-area>");
@@ -17,7 +21,7 @@ static class ExploreCommand {
 
     LocationAreaDetail locationAreaDetail;
     try {
-      locationAreaDetail = await LocationAreaService.GetLocationAreaDetailAsync(locationArea);
+      locationAreaDetail = await locationAreaService.GetLocationAreaDetailAsync(locationArea);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
