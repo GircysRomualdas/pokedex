@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 
 using Pokedex.Services;
 using Pokedex.Domain;
+using Pokedex.State;
 
 namespace Pokedex.Commands;
 
 static class CatchCommand {
-  public static async Task Run(string[] args) {
+  public static async Task Run(GameState gameState, string[] args) {
     if (args.Length < 2) {
       Console.WriteLine("Wrong number of arguments!");
       Console.WriteLine("usage: catch <pokemon>");
@@ -30,6 +31,7 @@ static class CatchCommand {
       Console.WriteLine($"{pokemon.Name} escaped!");
       return;
     }
+    gameState.Pokedex.Add(pokemon);
 
     Console.WriteLine($"{pokemon.Name} was caught!");
     Console.WriteLine($"Registered {pokemon.Name} in your Pokedex!");

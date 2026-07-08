@@ -11,6 +11,7 @@ static class HelpCommand {
     Console.WriteLine(" - mapb Display the previous 20 location areas.");
     Console.WriteLine(" - explore <location-area>: List all Pokemon found in a specific location.");
     Console.WriteLine(" - catch <pokemon>: Attempt to catch a wild Pokemon.");
+    Console.WriteLine(" - inspect <pokemon>: View detailed information about a caught Pokemon");
     Console.WriteLine(" - pokedex: Display all Pokemon you've caught.");
   }
 }

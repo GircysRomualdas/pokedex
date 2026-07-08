@@ -9,12 +9,14 @@ namespace Pokedex;
 
 class Program {
   static async Task Main() {
-    GameState gameState = new();
-
     if (!await PokemonRepository.CheckConnectionAsync()) {
       Console.WriteLine("Could not connect to Pokedex database.");
       return;
     }
+
+    GameState gameState = new() {
+      Pokedex = await PlayerService.LoadPokedexAsync()
+    };
 
     Console.WriteLine("Welcome to the Pokedex!");
     HelpCommand.Run();
@@ -43,10 +45,13 @@ class Program {
           await ExploreCommand.Run(parts);
           break;
         case "catch":
-          await CatchCommand.Run(parts);
+          await CatchCommand.Run(gameState, parts);
           break;
         case "pokedex":
-          await PokedexCommand.Run();
+          PokedexCommand.Run(gameState);
+          break;
+        case "inspect":
+          InspectCpmmand.Run(gameState, parts);
           break;
         default:
           Console.WriteLine(" Unknown command");
