@@ -8,9 +8,9 @@ namespace Pokedex.Services;
 
 class CatchService {
   private readonly PokemonService pokemonService;
-  private readonly PokemonRepository pokemonRepository;
+  private readonly IPokemonRepository pokemonRepository;
 
-  public CatchService(PokemonService pokemonService, PokemonRepository pokemonRepository) {
+  public CatchService(PokemonService pokemonService, IPokemonRepository pokemonRepository) {
     this.pokemonService = pokemonService;
     this.pokemonRepository = pokemonRepository;
   }

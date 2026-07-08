@@ -7,7 +7,7 @@ using Pokedex.Infrastructure.Repositories.Models;
 
 namespace Pokedex.Infrastructure.Repositories;
 
-class PokemonRepository {
+class PokemonRepository : IPokemonRepository {
   private readonly IMongoCollection<PokemonDocument> collection;
 
   public PokemonRepository(IMongoCollection<PokemonDocument> collection) {

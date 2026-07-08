@@ -9,9 +9,9 @@ namespace Pokedex.Services;
 
 class PokemonService {
   private readonly PokemonApiService pokemonApiService;
-  private readonly PokemonRepository pokemonRepository;
+  private readonly IPokemonRepository pokemonRepository;
 
-  public PokemonService(PokemonApiService pokemonApiService, PokemonRepository pokemonRepository) {
+  public PokemonService(PokemonApiService pokemonApiService, IPokemonRepository pokemonRepository) {
     this.pokemonApiService = pokemonApiService;
     this.pokemonRepository = pokemonRepository;
   }
