@@ -50,7 +50,7 @@ public class PokemonServiceTests {
   }
 
   [Fact]
-  public async Task GetPokemonAsync_WithExistingName_Throws() {
+  public async Task GetPokemonAsync_Throws() {
     var apiService = new Mock<IPokemonApiService>();
     var repository = new Mock<IPokemonRepository>();
 
