@@ -40,7 +40,7 @@ public class PokemonServiceTests {
 
     var service = new PokemonService(apiService.Object, repository.Object);
 
-    Pokemon result = await service.GetPokemonAsync(name);
+    var result = await service.GetPokemonAsync(name);
 
     Assert.Equal(name, result.Name);
     Assert.Equal(baseExperience, result.BaseExperience);

@@ -4,7 +4,7 @@ using Pokedex.Infrastructure.Api;
 
 namespace Pokedex.Services;
 
-class LocationAreaApiService {
+public class LocationAreaApiService : ILocationAreaApiService {
   private readonly IApiClient apiClient;
   private readonly PokeApiRoutes pokeApiRoutes;
   public LocationAreaApiService(IApiClient apiClient, PokeApiRoutes pokeApiRoutes) {

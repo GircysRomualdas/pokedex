@@ -4,9 +4,9 @@ using Pokedex.Infrastructure.Api;
 
 namespace Pokedex.Services;
 
-class LocationAreaService {
-  private readonly LocationAreaApiService locationAreaApiService;
-  public LocationAreaService(LocationAreaApiService locationAreaApiService) {
+public class LocationAreaService {
+  private readonly ILocationAreaApiService locationAreaApiService;
+  public LocationAreaService(ILocationAreaApiService locationAreaApiService) {
     this.locationAreaApiService = locationAreaApiService;
   }
   public async Task<LocationArea> GetLocationAreaAsync(string? url) {

@@ -6,6 +6,8 @@ using Pokedex.Infrastructure.Api;
 using Pokedex.Services;
 using System;
 
+namespace UnitTests.Services;
+
 public class PokemonApiServiceTests {
   // GetPokemonAsync
   [Theory]
@@ -38,7 +40,7 @@ public class PokemonApiServiceTests {
 
     var service = new PokemonApiService(apiClient.Object, routes);
 
-    PokemonApi result = await service.GetPokemonAsync(name);
+    var result = await service.GetPokemonAsync(name);
 
     Assert.Equal(name, result.Name);
     Assert.Equal(baseExperience, result.BaseExperience);
