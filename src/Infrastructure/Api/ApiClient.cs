@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Pokedex.Infrastructure.Api;
 
-class ApiClient : IApiClient {
+public class ApiClient : IApiClient {
   private readonly HttpClient client;
 
   public ApiClient(HttpClient client) {

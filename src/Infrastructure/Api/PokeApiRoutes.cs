@@ -1,6 +1,6 @@
 namespace Pokedex.Infrastructure.Api;
 
-class PokeApiRoutes {
+public class PokeApiRoutes {
   private readonly string baseUrl;
   public PokeApiRoutes(string baseUrl) {
     this.baseUrl = baseUrl;

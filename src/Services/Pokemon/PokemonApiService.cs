@@ -4,7 +4,7 @@ using Pokedex.Infrastructure.Api;
 
 namespace Pokedex.Services;
 
-class PokemonApiService {
+public class PokemonApiService : IPokemonApiService {
   private readonly IApiClient apiClient;
   private readonly PokeApiRoutes pokeApiRoutes;
 

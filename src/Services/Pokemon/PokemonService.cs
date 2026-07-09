@@ -7,11 +7,11 @@ using Pokedex.Infrastructure.Repositories;
 
 namespace Pokedex.Services;
 
-class PokemonService {
-  private readonly PokemonApiService pokemonApiService;
+public class PokemonService {
+  private readonly IPokemonApiService pokemonApiService;
   private readonly IPokemonRepository pokemonRepository;
 
-  public PokemonService(PokemonApiService pokemonApiService, IPokemonRepository pokemonRepository) {
+  public PokemonService(IPokemonApiService pokemonApiService, IPokemonRepository pokemonRepository) {
     this.pokemonApiService = pokemonApiService;
     this.pokemonRepository = pokemonRepository;
   }

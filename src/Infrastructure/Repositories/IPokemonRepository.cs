@@ -4,7 +4,7 @@ using Pokedex.Domain;
 
 namespace Pokedex.Infrastructure.Repositories;
 
-interface IPokemonRepository {
+public interface IPokemonRepository {
   Task<Pokemon> InsertPokemonAsync(Pokemon pokemon);
   Task<List<Pokemon>> GetPokemonsAsync();
 }
