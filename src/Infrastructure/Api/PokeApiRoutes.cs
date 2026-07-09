@@ -1,17 +1,20 @@
 namespace Pokedex.Infrastructure.Api;
 
-static class PokeApiRoutes {
-  private const string BaseUrl = "https://pokeapi.co/api/v2";
-
-  public static string Pokemon(string name) {
-    return $"{BaseUrl}/pokemon/{name}";
+class PokeApiRoutes {
+  private readonly string baseUrl;
+  public PokeApiRoutes(string baseUrl) {
+    this.baseUrl = baseUrl;
   }
 
-  public static string LocationAreas() {
-    return $"{BaseUrl}/location-area";
+  public string Pokemon(string name) {
+    return $"{baseUrl}/pokemon/{name}";
   }
 
-  public static string LocationArea(string name) {
-    return $"{BaseUrl}/location-area/{name}";
+  public string LocationAreas() {
+    return $"{baseUrl}/location-area";
+  }
+
+  public string LocationArea(string name) {
+    return $"{baseUrl}/location-area/{name}";
   }
 }

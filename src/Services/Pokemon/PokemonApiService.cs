@@ -6,12 +6,14 @@ namespace Pokedex.Services;
 
 class PokemonApiService {
   private readonly IApiClient apiClient;
+  private readonly PokeApiRoutes pokeApiRoutes;
 
-  public PokemonApiService(IApiClient apiClient) {
+  public PokemonApiService(IApiClient apiClient, PokeApiRoutes pokeApiRoutes) {
     this.apiClient = apiClient;
+    this.pokeApiRoutes = pokeApiRoutes;
   }
   public async Task<PokemonApi> GetPokemonAsync(string name) {
-    string fullUrl = PokeApiRoutes.Pokemon(name);
+    string fullUrl = pokeApiRoutes.Pokemon(name);
     string responseBody = await apiClient.FetchAsync(fullUrl);
     return Serializer.Deserialize<PokemonApi>(responseBody);
   }

@@ -6,17 +6,19 @@ namespace Pokedex.Services;
 
 class LocationAreaApiService {
   private readonly IApiClient apiClient;
-  public LocationAreaApiService(IApiClient apiClient) {
+  private readonly PokeApiRoutes pokeApiRoutes;
+  public LocationAreaApiService(IApiClient apiClient, PokeApiRoutes pokeApiRoutes) {
     this.apiClient = apiClient;
+    this.pokeApiRoutes = pokeApiRoutes;
   }
   public async Task<LocationAreaApi> GetPageAsync(string? url) {
-    string fullUrl = url is null ? PokeApiRoutes.LocationAreas() : url;
+    string fullUrl = url is null ? pokeApiRoutes.LocationAreas() : url;
     string responseBody = await apiClient.FetchAsync(fullUrl);
     return Serializer.Deserialize<LocationAreaApi>(responseBody);
   }
 
   public async Task<LocationAreaDetailApi> GetByNameAsync(string locationArea) {
-    string fullUrl = PokeApiRoutes.LocationArea(locationArea);
+    string fullUrl = pokeApiRoutes.LocationArea(locationArea);
     string responseBody = await apiClient.FetchAsync(fullUrl);
     return Serializer.Deserialize<LocationAreaDetailApi>(responseBody);
   }
