@@ -7,7 +7,7 @@ using Pokedex.Infrastructure.Repositories;
 
 namespace Pokedex.Services;
 
-public class PokemonService {
+public class PokemonService : IPokemonService {
   private readonly IPokemonApiService pokemonApiService;
   private readonly IPokemonRepository pokemonRepository;
 

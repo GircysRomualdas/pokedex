@@ -35,7 +35,8 @@ class Program {
     var pokemonRepository = new PokemonRepository(mongoDatabase.GetCollection<PokemonDocument>("pokemon"));
     var apiClient = new ApiClient(new HttpClient());
     var pokemonService = new PokemonService(new PokemonApiService(apiClient, pokemonApiService), pokemonRepository);
-    var catchService = new CatchService(pokemonService, pokemonRepository);
+    var catchCalculator = new CatchCalculator();
+    var catchService = new CatchService(pokemonService, pokemonRepository, catchCalculator);
     var locationAreaService = new LocationAreaService(new LocationAreaApiService(apiClient, pokemonApiService));
     var gameState = new GameState {
       Pokedex = await pokemonService.GetPokemonsAsync()

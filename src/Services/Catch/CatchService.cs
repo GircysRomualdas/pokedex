@@ -6,23 +6,20 @@ using Pokedex.Infrastructure.Repositories;
 
 namespace Pokedex.Services;
 
-class CatchService {
-  private readonly PokemonService pokemonService;
+public class CatchService {
+  private readonly IPokemonService pokemonService;
   private readonly IPokemonRepository pokemonRepository;
+  private readonly ICatchCalculator catchCalculator;
 
-  public CatchService(PokemonService pokemonService, IPokemonRepository pokemonRepository) {
+  public CatchService(IPokemonService pokemonService, IPokemonRepository pokemonRepository, ICatchCalculator catchCalculator) {
     this.pokemonService = pokemonService;
     this.pokemonRepository = pokemonRepository;
-  }
-  private bool RollCatch(Pokemon pokemon) {
-    int difficulty = Math.Min(pokemon.BaseExperience, 199);
-    int roll = Random.Shared.Next(0, 200);
-    return roll >= difficulty;
+    this.catchCalculator = catchCalculator;
   }
 
   public async Task<(bool IsCaught, Pokemon Pokemon)> CatchPokemonAsync(string name) {
     Pokemon pokemon = await pokemonService.GetPokemonAsync(name);
-    if (!RollCatch(pokemon)) {
+    if (!catchCalculator.CanCatch(pokemon)) {
       return (false, pokemon);
     }
 
