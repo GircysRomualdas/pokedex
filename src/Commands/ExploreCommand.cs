@@ -6,7 +6,7 @@ using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 
-class ExploreCommand {
+public class ExploreCommand {
   private readonly LocationAreaService locationAreaService;
   public ExploreCommand(LocationAreaService locationAreaService) {
     this.locationAreaService = locationAreaService;
