@@ -3,7 +3,7 @@ using Pokedex.Infrastructure.Repositories.Models;
 
 namespace Pokedex.Infrastructure.Repositories;
 
-static class PokemonDocumentMapper {
+public static class PokemonDocumentMapper {
   public static PokemonDocument ToDocument(Pokemon pokemon) {
     return new PokemonDocument {
       Name = pokemon.Name,

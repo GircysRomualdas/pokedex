@@ -7,17 +7,16 @@ using Pokedex.Infrastructure.Repositories.Models;
 
 namespace Pokedex.Infrastructure.Repositories;
 
-class PokemonRepository : IPokemonRepository {
+public class PokemonRepository : IPokemonRepository {
   private readonly IMongoCollection<PokemonDocument> collection;
 
   public PokemonRepository(IMongoCollection<PokemonDocument> collection) {
     this.collection = collection;
   }
 
-  public async Task<Pokemon> InsertPokemonAsync(Pokemon pokemon) {
+  public async Task InsertPokemonAsync(Pokemon pokemon) {
     PokemonDocument document = PokemonDocumentMapper.ToDocument(pokemon);
     await collection.InsertOneAsync(document);
-    return pokemon;
   }
 
   public async Task<List<Pokemon>> GetPokemonsAsync() {

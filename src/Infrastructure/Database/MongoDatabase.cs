@@ -2,7 +2,7 @@ using MongoDB.Driver;
 
 namespace Pokedex.Infrastructure.Database;
 
-class MongoDatabase {
+public class MongoDatabase {
   private readonly IMongoDatabase database;
   public IMongoDatabase Database => database;
   public MongoDatabase(string connString, string dbName) {

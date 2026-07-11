@@ -23,7 +23,7 @@ public class CatchService {
       return (false, pokemon);
     }
 
-    pokemon = await pokemonRepository.InsertPokemonAsync(pokemon);
+    await pokemonRepository.InsertPokemonAsync(pokemon);
 
     return (true, pokemon);
   }

@@ -31,7 +31,7 @@ public class CatchServiceTests {
 
     pokemonService.Setup(x => x.GetPokemonAsync(name)).ReturnsAsync(pokemon);
 
-    repository.Setup(x => x.InsertPokemonAsync(pokemon)).ReturnsAsync(pokemon);
+    repository.Setup(x => x.InsertPokemonAsync(pokemon));
 
     var service = new CatchService(pokemonService.Object, repository.Object, calculator.Object);
     var result = await service.CatchPokemonAsync(name);
