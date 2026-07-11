@@ -9,13 +9,7 @@ using System;
 
 namespace IntegrationTests.Commands;
 
-[Collection("Mongo")]
 public class ExploreCommandTests {
-  private readonly MongoFixture fixture;
-  public ExploreCommandTests(MongoFixture fixture) {
-    this.fixture = fixture;
-  }
-
   private string FetchReturn() {
     return """
     {

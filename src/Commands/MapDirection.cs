@@ -1,6 +1,6 @@
 namespace Pokedex.Commands;
 
-enum MapDirection {
+public enum MapDirection {
   Next,
   Previous
 }

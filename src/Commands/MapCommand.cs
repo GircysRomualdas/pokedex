@@ -7,7 +7,7 @@ using Pokedex.Domain;
 
 namespace Pokedex.Commands;
 
-class MapCommand {
+public class MapCommand {
   private readonly GameState gameState;
   private readonly LocationAreaService locationAreaService;
   public MapCommand(GameState gameState, LocationAreaService locationAreaService) {
