@@ -8,11 +8,22 @@ using MongoDB.Driver;
 
 namespace IntegrationTests.Repositories;
 
-public class PokemonRepositoryTests : IClassFixture<MongoFixture> {
+[Collection("Mongo")]
+public class PokemonRepositoryTests {
   private readonly MongoFixture fixture;
 
   public PokemonRepositoryTests(MongoFixture fixture) {
     this.fixture = fixture;
+  }
+
+  private static Pokemon CreatePikachu() {
+    return new Pokemon {
+      Name = "pikachu",
+      Types = ["electric"],
+      Height = 4,
+      Weight = 60,
+      BaseExperience = 112
+    };
   }
 
   private IMongoCollection<PokemonDocument> GetPokemonCollection() {
@@ -22,29 +33,21 @@ public class PokemonRepositoryTests : IClassFixture<MongoFixture> {
 
   [Fact]
   public async Task InsertPokemonAsync_InsertsPokemonDocument() {
-    var collection = GetPokemonCollection();
-    await collection.DeleteManyAsync(_ => true);
+    var collection = await fixture.GetCleanPokemonCollectionAsync();
 
     var repository = new PokemonRepository(collection);
 
-    var pokemon = new Pokemon {
-      Name = "pikachu",
-      Types = ["electric"],
-      Height = 4,
-      Weight = 60,
-      BaseExperience = 112
-    };
+    var pokemon = CreatePikachu();
 
     await repository.InsertPokemonAsync(pokemon);
 
     var documents = await collection.Find(_ => true).ToListAsync();
 
     Assert.Single(documents);
-    Assert.Equal("pikachu", documents[0].Name);
-    Assert.Equal(112, documents[0].BaseExperience);
-    Assert.Equal(4, documents[0].Height);
-    Assert.Equal(60, documents[0].Weight);
-    Assert.Contains("electric", documents[0].Types);
+    Assert.Equal(pokemon.Name, documents[0].Name);
+    Assert.Equal(pokemon.BaseExperience, documents[0].BaseExperience);
+    Assert.Equal(pokemon.Height, documents[0].Height);
+    Assert.Equal(pokemon.Weight, documents[0].Weight);
   }
 
   [Fact]
@@ -53,13 +56,7 @@ public class PokemonRepositoryTests : IClassFixture<MongoFixture> {
     await collection.DeleteManyAsync(_ => true);
 
     var repository = new PokemonRepository(collection);
-    var pokemon = new Pokemon {
-      Name = "pikachu",
-      Types = ["electric"],
-      Height = 4,
-      Weight = 60,
-      BaseExperience = 112
-    };
+    var pokemon = CreatePikachu();
 
     var document = PokemonDocumentMapper.ToDocument(pokemon);
     await collection.InsertOneAsync(document);
@@ -67,11 +64,10 @@ public class PokemonRepositoryTests : IClassFixture<MongoFixture> {
     var result = await repository.GetPokemonsAsync();
 
     Assert.Single(result);
-    Assert.Equal("pikachu", result[0].Name);
-    Assert.Equal(112, result[0].BaseExperience);
-    Assert.Equal(4, result[0].Height);
-    Assert.Equal(60, result[0].Weight);
-    Assert.Contains("electric", result[0].Types);
+    Assert.Equal(pokemon.Name, result[0].Name);
+    Assert.Equal(pokemon.BaseExperience, result[0].BaseExperience);
+    Assert.Equal(pokemon.Height, result[0].Height);
+    Assert.Equal(pokemon.Weight, result[0].Weight);
   }
 
   [Fact]
