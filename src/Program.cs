@@ -16,13 +16,11 @@ namespace Pokedex;
 
 class Program {
   static async Task Main() {
-    var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
-    var mongoOptions = configuration.GetSection("Mongo").Get<MongoOptions>() ?? throw new Exception("Mongo configuration is missing");
-    var pokeApiOptions = configuration.GetSection("PokeApi").Get<PokeApiOptions>() ?? throw new Exception("PokeApi configuration is missing");
+    var config = new AppConfiguration("appsettings.json");
 
     var mongoDatabase = new MongoDatabase(
-      mongoOptions.ConnectionString,
-      mongoOptions.DatabaseName
+        config.Mongo.ConnectionString,
+        config.Mongo.DatabaseName
     );
 
     var healthCheck = new MongoDbHealthCheck(mongoDatabase.Database);
@@ -31,7 +29,7 @@ class Program {
       return;
     }
 
-    var pokemonApiService = new PokeApiRoutes(pokeApiOptions.BaseUrl);
+    var pokemonApiService = new PokeApiRoutes(config.PokeApi.BaseUrl);
     var pokemonRepository = new PokemonRepository(mongoDatabase.GetCollection<PokemonDocument>("pokemon"));
     var apiClient = new ApiClient(new HttpClient());
     var pokemonService = new PokemonService(new PokemonApiService(apiClient, pokemonApiService), pokemonRepository);

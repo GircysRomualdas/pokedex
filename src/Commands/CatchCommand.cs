@@ -7,7 +7,7 @@ using Pokedex.State;
 
 namespace Pokedex.Commands;
 
-class CatchCommand {
+public class CatchCommand {
   private readonly CatchService catchService;
   private readonly GameState gameState;
   public CatchCommand(CatchService catchService, GameState gameState) {

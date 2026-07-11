@@ -1,5 +1,5 @@
 namespace Pokedex.Configuration;
 
-class PokeApiOptions {
+public class PokeApiOptions {
   public string BaseUrl { get; set; } = "";
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Pokedex.Domain;
 using MongoDB.Driver;
 
-namespace IntegrationTests.Database;
+namespace IntegrationTests.Repositories;
 
 public class PokemonRepositoryTests : IClassFixture<MongoFixture> {
   private readonly MongoFixture fixture;
@@ -48,7 +48,7 @@ public class PokemonRepositoryTests : IClassFixture<MongoFixture> {
   }
 
   [Fact]
-  public async Task GetPokemonsAsync_test() {
+  public async Task GetPokemonsAsync_ReturnsPokemons() {
     var collection = GetPokemonCollection();
     await collection.DeleteManyAsync(_ => true);
 
