@@ -62,8 +62,7 @@ public class CatchCommandTests {
     };
     var catchCommand = new CatchCommand(catchService, gameState);
 
-    var output = new StringWriter();
-    Console.SetOut(output);
+    using var console = new ConsoleCapture();
 
     await catchCommand.Run(["catch", "pikachu"]);
 
@@ -73,7 +72,7 @@ public class CatchCommandTests {
     Assert.Single(documents);
     Assert.Equal("pikachu", documents[0].Name);
 
-    Assert.Contains("pikachu was caught!", output.ToString());
+    Assert.Contains("pikachu was caught!", console.Output.ToString());
   }
 
   [Fact]
@@ -98,8 +97,7 @@ public class CatchCommandTests {
     };
     var catchCommand = new CatchCommand(catchService, gameState);
 
-    var output = new StringWriter();
-    Console.SetOut(output);
+    using var console = new ConsoleCapture();
 
     await catchCommand.Run(["catch", "pikachu"]);
 
@@ -108,6 +106,6 @@ public class CatchCommandTests {
     var documents = await collection.Find(_ => true).ToListAsync();
     Assert.Empty(documents);
 
-    Assert.Contains("pikachu escaped!", output.ToString());
+    Assert.Contains("pikachu escaped!", console.Output.ToString());
   }
 }

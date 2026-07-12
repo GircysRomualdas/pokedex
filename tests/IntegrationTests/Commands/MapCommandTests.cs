@@ -35,6 +35,9 @@ public class MapCommandTests {
     var locationAreaService = new LocationAreaService(apiService.Object);
 
     var command = new MapCommand(gameState, locationAreaService);
+
+    using var console = new ConsoleCapture();
+
     await command.Run(MapDirection.Next);
 
     apiService.Verify(x => x.GetPageAsync(url), Times.Once);
@@ -42,5 +45,7 @@ public class MapCommandTests {
     Assert.Equal(nextUrl, gameState.NextLocationUrl);
 
     Assert.Null(gameState.PreviousLocationUrl);
+
+    Assert.Contains("kanto-route-1", console.Output.ToString());
   }
 }

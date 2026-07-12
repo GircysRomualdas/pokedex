@@ -50,13 +50,13 @@ public class ExploreCommandTests {
     var locationAreaService = new LocationAreaService(locationAreaApiService);
     var exploreCommand = new ExploreCommand(locationAreaService);
 
-    var output = new StringWriter();
-    Console.SetOut(output);
+    using var console = new ConsoleCapture();
+
     await exploreCommand.Run(["explore", locationArea]);
 
-    Assert.Contains("pikachu", output.ToString());
-    Assert.Contains("zubat", output.ToString());
-    Assert.Contains("psyduck", output.ToString());
+    Assert.Contains("pikachu", console.Output.ToString());
+    Assert.Contains("zubat", console.Output.ToString());
+    Assert.Contains("psyduck", console.Output.ToString());
   }
 
   [Fact]
@@ -74,10 +74,10 @@ public class ExploreCommandTests {
     var locationAreaService = new LocationAreaService(locationAreaApiService);
     var exploreCommand = new ExploreCommand(locationAreaService);
 
-    var output = new StringWriter();
-    Console.SetOut(output);
+    using var console = new ConsoleCapture();
+
     await exploreCommand.Run(["explore"]);
 
-    Assert.Contains("Wrong number of arguments", output.ToString());
+    Assert.Contains("Wrong number of arguments", console.Output.ToString());
   }
 }
