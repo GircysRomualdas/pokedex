@@ -1,4 +1,4 @@
-![test bage](https://github.com/GircysRomualdas/pokedex/actions/workflows/ci.yml/badge.svg)
+![test badge](https://github.com/GircysRomualdas/pokedex/actions/workflows/ci.yml/badge.svg)
 
 # Pokedex
 
