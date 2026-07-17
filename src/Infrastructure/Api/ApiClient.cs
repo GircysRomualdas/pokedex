@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 namespace Pokedex.Infrastructure.Api;
 
 public class ApiClient : IApiClient {
-  private readonly HttpClient client;
+  private readonly HttpClient _client;
 
   public ApiClient(HttpClient client) {
-    this.client = client;
+    _client = client;
   }
 
   public async Task<string> FetchAsync(string url) {
     if (Cache.TryGet(url, out var data)) return data;
 
     try {
-      HttpResponseMessage response = await client.GetAsync(url);
+      HttpResponseMessage response = await _client.GetAsync(url);
       response.EnsureSuccessStatusCode();
       string responseBody = await response.Content.ReadAsStringAsync();
 

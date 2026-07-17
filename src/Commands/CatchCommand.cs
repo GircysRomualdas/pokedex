@@ -8,11 +8,11 @@ using Pokedex.State;
 namespace Pokedex.Commands;
 
 public class CatchCommand {
-  private readonly CatchService catchService;
-  private readonly GameState gameState;
+  private readonly CatchService _catchService;
+  private readonly GameState _gameState;
   public CatchCommand(CatchService catchService, GameState gameState) {
-    this.catchService = catchService;
-    this.gameState = gameState;
+    _catchService = catchService;
+    _gameState = gameState;
   }
   public async Task Run(string[] args) {
     if (args.Length < 2) {
@@ -25,7 +25,7 @@ public class CatchCommand {
     Pokemon pokemon;
     bool isCaught;
     try {
-      (isCaught, pokemon) = await catchService.CatchPokemonAsync(name);
+      (isCaught, pokemon) = await _catchService.CatchPokemonAsync(name);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
@@ -37,7 +37,7 @@ public class CatchCommand {
       Console.WriteLine($"{pokemon.Name} escaped!");
       return;
     }
-    gameState.Pokedex.Add(pokemon);
+    _gameState.Pokedex.Add(pokemon);
 
     Console.WriteLine($"{pokemon.Name} was caught!");
     Console.WriteLine($"Registered {pokemon.Name} in your Pokedex!");

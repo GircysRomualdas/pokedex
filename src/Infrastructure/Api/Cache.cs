@@ -6,20 +6,20 @@ namespace Pokedex.Infrastructure.Api;
 
 static class Cache {
   private record CacheItem(string Data, DateTime CachedAt);
-  private static readonly Dictionary<string, CacheItem> cache = new();
-  private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(10);
+  private static readonly Dictionary<string, CacheItem> _cache = new();
+  private static readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(10);
 
   private static bool CacheIsValid(CacheItem item) {
-    return DateTime.UtcNow - item.CachedAt < CacheDuration;
+    return DateTime.UtcNow - item.CachedAt < _cacheDuration;
   }
 
   public static bool TryGet(string key, [NotNullWhen(true)] out string? value) {
     value = null;
 
-    if (!cache.TryGetValue(key, out var item)) return false;
+    if (!_cache.TryGetValue(key, out var item)) return false;
 
     if (!CacheIsValid(item)) {
-      cache.Remove(key);
+      _cache.Remove(key);
       return false;
     }
 
@@ -28,6 +28,6 @@ static class Cache {
   }
 
   public static void Set(string key, string value) {
-    cache[key] = new CacheItem(value, DateTime.UtcNow);
+    _cache[key] = new CacheItem(value, DateTime.UtcNow);
   }
 }

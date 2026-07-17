@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Pokedex.Infrastructure.Api;
 using Pokedex.Services;
 using System;
+using Pokedex.Configuration;
 
 namespace UnitTests.Services;
 

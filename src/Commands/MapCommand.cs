@@ -8,25 +8,25 @@ using Pokedex.Domain;
 namespace Pokedex.Commands;
 
 public class MapCommand {
-  private readonly GameState gameState;
-  private readonly LocationAreaService locationAreaService;
+  private readonly GameState _gameState;
+  private readonly LocationAreaService _locationAreaService;
   public MapCommand(GameState gameState, LocationAreaService locationAreaService) {
-    this.gameState = gameState;
-    this.locationAreaService = locationAreaService;
+    _gameState = gameState;
+    _locationAreaService = locationAreaService;
   }
   public async Task Run(MapDirection direction) {
-    string? url = direction == MapDirection.Next ? gameState.NextLocationUrl : gameState.PreviousLocationUrl;
+    string? url = direction == MapDirection.Next ? _gameState.NextLocationUrl : _gameState.PreviousLocationUrl;
     LocationArea locationArea;
     try {
-      locationArea = await locationAreaService.GetLocationAreaAsync(url);
+      locationArea = await _locationAreaService.GetLocationAreaAsync(url);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);
       return;
     }
 
-    gameState.NextLocationUrl = locationArea.Next;
-    gameState.PreviousLocationUrl = locationArea.Previous;
+    _gameState.NextLocationUrl = locationArea.Next;
+    _gameState.PreviousLocationUrl = locationArea.Previous;
 
     foreach (var area in locationArea.Areas) {
       Console.WriteLine($" {area}");

@@ -6,9 +6,9 @@ using Pokedex.State;
 namespace Pokedex.Commands;
 
 class InspectCommand {
-  private readonly GameState gameState;
+  private readonly GameState _gameState;
   public InspectCommand(GameState gameState) {
-    this.gameState = gameState;
+    _gameState = gameState;
   }
 
   public void Run(string[] args) {
@@ -19,7 +19,7 @@ class InspectCommand {
     }
     string name = args[1];
 
-    Pokemon? pokemon = gameState.Pokedex.FirstOrDefault(p => p.Name == name);
+    Pokemon? pokemon = _gameState.Pokedex.FirstOrDefault(p => p.Name == name);
 
     if (pokemon is null) {
       Console.WriteLine($"Your Pokedex does not contain {name}");

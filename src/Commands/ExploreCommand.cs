@@ -7,9 +7,9 @@ using Pokedex.Domain;
 namespace Pokedex.Commands;
 
 public class ExploreCommand {
-  private readonly LocationAreaService locationAreaService;
+  private readonly LocationAreaService _locationAreaService;
   public ExploreCommand(LocationAreaService locationAreaService) {
-    this.locationAreaService = locationAreaService;
+    _locationAreaService = locationAreaService;
   }
   public async Task Run(string[] args) {
     if (args.Length < 2) {
@@ -21,7 +21,7 @@ public class ExploreCommand {
 
     LocationAreaDetail locationAreaDetail;
     try {
-      locationAreaDetail = await locationAreaService.GetLocationAreaDetailAsync(locationArea);
+      locationAreaDetail = await _locationAreaService.GetLocationAreaDetailAsync(locationArea);
     }
     catch (Exception ex) {
       Console.WriteLine(ex.Message);

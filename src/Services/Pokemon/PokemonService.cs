@@ -8,20 +8,20 @@ using Pokedex.Infrastructure.Repositories;
 namespace Pokedex.Services;
 
 public class PokemonService : IPokemonService {
-  private readonly IPokemonApiService pokemonApiService;
-  private readonly IPokemonRepository pokemonRepository;
+  private readonly IPokemonApiService _pokemonApiService;
+  private readonly IPokemonRepository _pokemonRepository;
 
   public PokemonService(IPokemonApiService pokemonApiService, IPokemonRepository pokemonRepository) {
-    this.pokemonApiService = pokemonApiService;
-    this.pokemonRepository = pokemonRepository;
+    _pokemonApiService = pokemonApiService;
+    _pokemonRepository = pokemonRepository;
   }
 
   public async Task<Pokemon> GetPokemonAsync(string name) {
-    PokemonApi pokemonApi = await pokemonApiService.GetPokemonAsync(name);
+    PokemonApi pokemonApi = await _pokemonApiService.GetPokemonAsync(name);
     return PokemonMapper.ToDomain(pokemonApi);
   }
 
   public Task<List<Pokemon>> GetPokemonsAsync() {
-    return pokemonRepository.GetPokemonsAsync();
+    return _pokemonRepository.GetPokemonsAsync();
   }
 }

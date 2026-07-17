@@ -5,17 +5,17 @@ using Pokedex.Infrastructure.Api;
 namespace Pokedex.Services;
 
 public class LocationAreaService {
-  private readonly ILocationAreaApiService locationAreaApiService;
+  private readonly ILocationAreaApiService _locationAreaApiService;
   public LocationAreaService(ILocationAreaApiService locationAreaApiService) {
-    this.locationAreaApiService = locationAreaApiService;
+    _locationAreaApiService = locationAreaApiService;
   }
   public async Task<LocationArea> GetLocationAreaAsync(string? url) {
-    LocationAreaApi locationAreaApi = await locationAreaApiService.GetPageAsync(url);
+    LocationAreaApi locationAreaApi = await _locationAreaApiService.GetPageAsync(url);
     return LocationAreaMapper.ToDomain(locationAreaApi);
   }
 
   public async Task<LocationAreaDetail> GetLocationAreaDetailAsync(string locationArea) {
-    LocationAreaDetailApi locationAreaDetailApi = await locationAreaApiService.GetByNameAsync(locationArea);
+    LocationAreaDetailApi locationAreaDetailApi = await _locationAreaApiService.GetByNameAsync(locationArea);
     return LocationAreaDetailMapper.ToDomain(locationAreaDetailApi);
   }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Net.Http;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 using Pokedex.Configuration;
 using Pokedex.State;
@@ -11,39 +10,67 @@ using Pokedex.Infrastructure.Repositories;
 using Pokedex.Infrastructure.Api;
 using Pokedex.Infrastructure.Database;
 using Pokedex.Infrastructure.Repositories.Models;
+using MongoDB.Driver;
 
 namespace Pokedex;
 
 class Program {
   static async Task Main() {
-    var config = new AppConfiguration("appsettings.json");
+    var services = new ServiceCollection();
+    services.AddSingleton<AppConfiguration>(provider => {
+      return new AppConfiguration("appsettings.json");
+    });
+    services.AddSingleton<MongoDatabase>();
+    services.AddSingleton<PokeApiRoutes>(provider => {
+      var config = provider.GetRequiredService<AppConfiguration>();
+      return new PokeApiRoutes(
+        config.PokeApi.BaseUrl
+      );
+    });
+    services.AddSingleton<IMongoCollection<PokemonDocument>>(provider => {
+      var db = provider.GetRequiredService<MongoDatabase>();
+      return db.GetCollection<PokemonDocument>("pokemon");
+    });
+    services.AddSingleton<IMongoDatabase>(provider => {
+      var mongoDatabase =
+          provider.GetRequiredService<MongoDatabase>();
 
-    var mongoDatabase = new MongoDatabase(
-        config.Mongo.ConnectionString,
-        config.Mongo.DatabaseName
-    );
+      return mongoDatabase.Database;
+    });
+    services.AddSingleton<MongoDbHealthCheck>();
+    services.AddSingleton<IPokemonRepository, PokemonRepository>();
+    services.AddHttpClient();
+    services.AddSingleton<IApiClient, ApiClient>();
+    services.AddSingleton<IPokemonApiService, PokemonApiService>();
+    services.AddSingleton<IPokemonService, PokemonService>();
+    services.AddSingleton<ICatchCalculator, CatchCalculator>();
+    services.AddSingleton<CatchService>();
+    services.AddSingleton<ILocationAreaApiService, LocationAreaApiService>();
+    services.AddSingleton<LocationAreaService>();
+    services.AddSingleton<GameState>();
+    services.AddSingleton<GameInitializer>();
+    services.AddSingleton<CatchCommand>();
+    services.AddSingleton<ExploreCommand>();
+    services.AddSingleton<InspectCommand>();
+    services.AddSingleton<MapCommand>();
+    services.AddSingleton<PokedexCommand>();
 
-    var healthCheck = new MongoDbHealthCheck(mongoDatabase.Database);
+    var provider = services.BuildServiceProvider();
+
+    var healthCheck = provider.GetRequiredService<MongoDbHealthCheck>();
     if (!await healthCheck.CheckAsync()) {
       Console.WriteLine("Could not connect to Pokedex database.");
       return;
     }
 
-    var pokemonApiService = new PokeApiRoutes(config.PokeApi.BaseUrl);
-    var pokemonRepository = new PokemonRepository(mongoDatabase.GetCollection<PokemonDocument>("pokemon"));
-    var apiClient = new ApiClient(new HttpClient());
-    var pokemonService = new PokemonService(new PokemonApiService(apiClient, pokemonApiService), pokemonRepository);
-    var catchCalculator = new CatchCalculator();
-    var catchService = new CatchService(pokemonService, pokemonRepository, catchCalculator);
-    var locationAreaService = new LocationAreaService(new LocationAreaApiService(apiClient, pokemonApiService));
-    var gameState = new GameState {
-      Pokedex = await pokemonService.GetPokemonsAsync()
-    };
-    var catchCommand = new CatchCommand(catchService, gameState);
-    var exploreCommand = new ExploreCommand(locationAreaService);
-    var inspectCommand = new InspectCommand(gameState);
-    var mapCommand = new MapCommand(gameState, locationAreaService);
-    var pokedexCommand = new PokedexCommand(gameState);
+    var gameInitializer = provider.GetRequiredService<GameInitializer>();
+    await gameInitializer.InitializeAsync();
+
+    var mapCommand = provider.GetRequiredService<MapCommand>();
+    var exploreCommand = provider.GetRequiredService<ExploreCommand>();
+    var catchCommand = provider.GetRequiredService<CatchCommand>();
+    var pokedexCommand = provider.GetRequiredService<PokedexCommand>();
+    var inspectCommand = provider.GetRequiredService<InspectCommand>();
 
     Console.WriteLine("Welcome to the Pokedex!");
     HelpCommand.Run();
